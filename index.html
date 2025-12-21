@@ -3,194 +3,220 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PLAYNO - !!!FUN FOR ALL!!!</title>
+    <title>PLAYNO - !!! BUILD AND PLAY !!!</title>
     <style>
-        /* --- 2008 CHAOS ENGINE --- */
+        /* --- 2008 CHAOS THEME --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            background-color: #74b9ff;
-            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAF0lEQVQYV2NkIAIwpCH5f2ZGApD6/x8AFr8EAnunmYcAAAAASUVORK5CYII=');
+            background-color: #3d85c6;
+            background-image: radial-gradient(#ffffff 10%, transparent 10%);
+            background-size: 30px 30px;
             font-family: "Comic Sans MS", "Verdana", sans-serif;
             color: #000;
+            overflow-x: hidden;
         }
 
         /* --- THE LOGO & SPINNING STAR --- */
-        .header-main {
-            background: #d1d1d1;
-            border-bottom: 4px solid #444;
-            padding: 30px;
+        .header {
+            background: #cccccc;
+            border-bottom: 5px solid #000;
+            padding: 25px;
             display: flex;
             align-items: center;
             position: relative;
-            overflow: hidden;
+            box-shadow: 0px 5px 15px rgba(0,0,0,0.3);
         }
 
         .brick-logo {
-            width: 80px;
-            height: 80px;
-            background: #ff3838;
-            border: 4px solid black;
-            font-size: 60px;
+            width: 85px;
+            height: 85px;
+            background: #cc0000;
+            border: 4px solid #000;
+            font-size: 65px;
             color: white;
             font-weight: 900;
             display: flex;
             justify-content: center;
             align-items: center;
-            transform: rotate(-12deg);
-            box-shadow: 10px 10px 0px rgba(0,0,0,0.2);
-            z-index: 5;
+            transform: rotate(-8deg);
+            box-shadow: 8px 8px 0px #000;
+            text-shadow: 4px 4px #000;
+            z-index: 10;
         }
 
         .site-title {
             font-family: "Impact", sans-serif;
-            font-size: 70px;
-            color: white;
-            text-shadow: 5px 5px #000;
-            margin-left: 20px;
-            letter-spacing: -3px;
+            font-size: 80px;
+            color: #fff;
+            text-shadow: 6px 6px #000;
+            margin-left: 15px;
+            letter-spacing: -4px;
         }
 
-        .motto-container {
+        .motto-box {
             position: absolute;
-            right: 50px;
-            top: 10px;
+            right: 40px;
+            top: 5px;
         }
 
         .spinning-star {
-            width: 120px;
-            height: 120px;
-            background: #f1c40f;
+            width: 130px;
+            height: 130px;
+            background: #ffff00;
             clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             font-weight: bold;
-            color: #d35400;
-            font-size: 16px;
-            animation: spin 8s infinite linear;
+            color: #ff0000;
+            font-size: 15px;
+            animation: spin 12s infinite linear;
             border: 2px solid #000;
+            line-height: 1;
         }
 
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
         /* --- NAV BAR --- */
         .nav {
-            background: #222;
-            padding: 10px;
-            border-bottom: 3px solid #ff3838;
-            text-align: center;
+            background: #111;
+            padding: 12px;
+            border-bottom: 4px solid #cc0000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
         }
         .nav a {
             color: #00ff00;
             text-decoration: none;
-            padding: 5px 20px;
+            padding: 6px 18px;
             font-weight: bold;
-            border: 2px outset #555;
-            margin: 0 5px;
-            background: #333;
+            border: 3px outset #444;
+            background: #222;
+            font-size: 14px;
         }
-        .nav a:hover { background: #fff; color: #000; }
+        .nav a:hover { background: #ffea00; color: #000; border-style: inset; }
+
+        /* --- SIGN UP BUTTON (NEW) --- */
+        .signup-btn {
+            background: #ff00ff;
+            color: white;
+            padding: 10px 20px;
+            border: 3px solid black;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 18px;
+            box-shadow: 4px 4px 0px #000;
+            animation: bounce 1s infinite alternate;
+        }
+        @keyframes bounce { from { transform: scale(1); } to { transform: scale(1.1); } }
 
         /* --- LAYOUT --- */
-        .messy-container {
-            max-width: 1100px;
-            margin: 20px auto;
-            display: flex;
+        .container {
+            max-width: 1150px;
+            margin: 25px auto;
+            display: grid;
+            grid-template-columns: 220px 1fr;
             gap: 20px;
             padding: 10px;
         }
 
         .sidebar {
-            width: 200px;
+            background: #eeeeee;
+            border: 3px solid black;
+            padding: 15px;
+            height: fit-content;
+            transform: rotate(-2deg);
+        }
+
+        .main-card {
             background: #fff;
-            border: 2px solid black;
-            padding: 10px;
-            transform: rotate(-1deg);
-        }
-
-        .content {
-            flex: 1;
-            background: white;
-            border: 2px solid black;
-            padding: 20px;
-            box-shadow: 15px 15px 0px rgba(0,0,0,0.1);
-        }
-
-        /* --- UI ELEMENTS --- */
-        .download-box {
-            background: #ffff99;
-            border: 5px dotted #ff0000;
+            border: 4px solid black;
             padding: 25px;
-            margin-bottom: 20px;
-            text-align: center;
+            position: relative;
         }
 
-        .big-btn {
-            background: linear-gradient(to bottom, #4cd137, #44bd32);
+        /* --- DOWNLOAD AREA --- */
+        .download-zone {
+            background: #fffaad;
+            border: 6px double #cc0000;
+            padding: 30px;
+            margin-bottom: 25px;
+            text-align: center;
+            transform: rotate(1deg);
+        }
+
+        .install-btn {
+            background: linear-gradient(to bottom, #00ff00, #008000);
             color: white;
-            font-size: 35px;
-            padding: 15px 40px;
-            border: 4px solid #000;
+            font-size: 40px;
+            padding: 20px 50px;
+            border: 5px solid #000;
             cursor: pointer;
             font-family: "Impact";
-            box-shadow: 8px 8px 0px #000;
+            box-shadow: 10px 10px 0px rgba(0,0,0,0.4);
+            margin-top: 15px;
         }
-        .big-btn:active { transform: translate(4px, 4px); box-shadow: 2px 2px 0px #000; }
+        .install-btn:active { transform: translate(5px, 5px); box-shadow: 2px 2px 0px #000; }
 
-        .section-header {
-            background: #0984e3;
-            color: white;
-            padding: 10px;
-            margin: 20px 0 10px 0;
+        /* --- GAMES & SHOPPER --- */
+        .shelf-title {
+            background: #0000bb;
+            color: #fff;
+            padding: 8px;
             font-family: "Impact";
-            font-size: 24px;
-            transform: skewX(-10deg);
+            font-size: 28px;
+            margin: 25px 0 15px 0;
+            text-transform: uppercase;
         }
 
-        .game-grid {
+        .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+            gap: 20px;
         }
 
-        .game-box {
-            border: 1px solid #ccc;
+        .item-box {
+            border: 2px solid #000;
             padding: 10px;
-            background: #f9f9f9;
+            background: #f1f1f1;
             text-align: center;
+            box-shadow: 4px 4px 0px #ccc;
         }
-        .game-box:hover { background: #ffeaa7; }
 
-        .sticker {
-            background: #e17055;
-            color: white;
-            padding: 5px;
-            font-size: 10px;
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            transform: rotate(15deg);
-            border: 1px solid black;
+        .thumbnail {
+            font-size: 60px;
+            background: #fff;
+            border: 1px solid #999;
+            margin-bottom: 8px;
+            padding: 10px;
         }
 
         .footer {
-            margin-top: 50px;
             background: #000;
-            color: #777;
-            padding: 30px;
+            color: #666;
+            padding: 40px;
             text-align: center;
-            font-size: 10px;
+            font-size: 11px;
+            border-top: 5px solid #cc0000;
+        }
+
+        marquee {
+            background: yellow;
+            font-weight: bold;
+            border-bottom: 2px solid black;
         }
     </style>
 </head>
 <body>
 
-    <div class="header-main">
+    <div class="header">
         <div class="brick-logo">P</div>
         <div class="site-title">PLAYNO</div>
-        <div class="motto-container">
+        <div class="motto-box">
             <div class="spinning-star">FUN<br>FOR<br>ALL</div>
         </div>
     </div>
@@ -200,101 +226,93 @@
         <a href="#">GAMES</a>
         <a href="#">shopper</a>
         <a href="#">FORUMS</a>
-        <a href="#">HELP</a>
+        <a href="#" class="signup-btn">SIGN UP TODAY!</a>
     </div>
 
-    <marquee style="background: red; color: white; font-weight: bold; padding: 5px;">
-        *** WELCOME TO PLAYNO *** BUILD YOUR OWN GAMES *** JOIN THE COMMUNITY *** NEW ITEMS IN THE SHOPPER *** FUN FOR ALL ***
+    <marquee scrollamount="10">
+        !!! WELCOME TO PLAYNO !!! THE BEST GAME ENGINE EVER !!! JOIN 1,000+ BUILDERS !!! NEW ITEMS IN THE SHOPPER !!! DOWNLOAD NOW !!!
     </marquee>
 
-    <div class="messy-container">
+    <div class="container">
         <div class="sidebar">
-            <div style="border-bottom: 2px solid black; margin-bottom: 10px; font-weight: bold;">User Panel</div>
-            <center>
-                <img src="https://via.placeholder.com/100x120?text=PLAYER" style="border: 1px solid #000; margin-bottom: 5px;">
-                <br><b>Guest_882</b>
-            </center>
-            <hr><br>
-            <div style="font-size: 12px;">
-                <b>Friends:</b> 0<br>
-                <b>Messages:</b> 1<br>
-                <b>Points:</b> 10
+            <h3 style="border-bottom: 2px solid black;">Community</h3>
+            <div style="padding: 10px 0;">
+                <b>Players Online:</b> 412<br>
+                <b>Total Bricks:</b> 1,502,321<br>
+                <b>Newest User:</b> BrickLover99
+            </div>
+            <hr>
+            <div style="margin-top: 10px; font-size: 12px; font-style: italic; background: #fff; padding: 5px; border: 1px solid #000;">
+                "Check out my new obby!"<br>- User123
             </div>
             <br>
-            <div style="background: #eee; padding: 5px; font-size: 11px; border: 1px dashed black;">
-                "I love building bricks!" - Admin
+            <div style="width: 160px; height: 300px; background: #aaa; border: 2px solid #555; display: flex; align-items: center; justify-content: center; text-align: center;">
+                BUY THE<br>OFFICIAL<br>SHIRT!
             </div>
         </div>
 
-        <div class="content">
-            <div class="download-box">
-                <div style="position: relative; display: inline-block;">
-                    <div class="sticker">NEW VERSION!</div>
-                    <h2 style="font-size: 30px; margin-bottom: 10px;">PLAYNO ENGINE</h2>
-                </div>
-                <p>Create anything you can imagine!</p>
-                <br>
-                <button class="big-btn" onclick="downloadGame()">DOWNLOAD NOW</button>
-                <br><br>
-                <p style="font-size: 12px; color: #666;">Works on Windows & Mac (Requires Python)</p>
+        <div class="main-card">
+            <div class="download-zone">
+                <h1 style="color: #cc0000; font-size: 45px; font-family: 'Impact';">START BUILDING!</h1>
+                <p>Get the official PLAYNO Game Engine (v0.9.1)</p>
+                <button class="install-btn" onclick="downloadEngine()">INSTALL .PY</button>
             </div>
 
-            <div class="section-header">POPULAR PLACES</div>
-            
-            <div class="game-grid" id="gamesList">
+            <div class="shelf-title">Popular Games</div>
+            <div class="grid" id="gameGrid">
                 </div>
 
-            <div class="section-header">LATEST FROM shopper</div>
-            <div style="display: flex; gap: 10px; overflow-x: auto; padding: 10px;">
-                <div style="border: 1px solid #000; min-width: 80px; height: 80px; background: #eee; text-align: center; padding-top: 10px;">Red Hat</div>
-                <div style="border: 1px solid #000; min-width: 80px; height: 80px; background: #eee; text-align: center; padding-top: 10px;">Blue Shirt</div>
-                <div style="border: 1px solid #000; min-width: 80px; height: 80px; background: #eee; text-align: center; padding-top: 10px;">Epic Face</div>
+            <div class="shelf-title">Latest from shopper</div>
+            <div style="display: flex; gap: 15px; background: #eee; padding: 15px; border: 2px solid black; overflow-x: auto;">
+                <div class="item-box" style="min-width: 100px;">🎩<br>Top Hat</div>
+                <div class="item-box" style="min-width: 100px;">👕<br>Red Tee</div>
+                <div class="item-box" style="min-width: 100px;">🕶️<br>Cool Shades</div>
+                <div class="item-box" style="min-width: 100px;">⚔️<br>Iron Sword</div>
             </div>
         </div>
     </div>
 
     <div class="footer">
-        PLAYNO (c) 2008-2025<br>
-        All rights reserved to the community!<br>
-        <a href="#" style="color: #444;">Privacy</a> | <a href="#" style="color: #444;">Terms</a>
+        PLAYNO &copy; 2008-2025. All brick designs are property of their creators.<br>
+        This site is for fun! | <a href="#" style="color: #999;">Privacy</a> | <a href="#" style="color: #999;">Terms</a>
     </div>
 
     <script>
         const games = [
-            { name: "Brick Battle", creator: "Admin", icon: "🧱" },
-            { name: "Sword Fight", creator: "Knight", icon: "⚔️" },
-            { name: "The Obby", creator: "ParkourKing", icon: "🏃" },
-            { name: "Baseplate", creator: "Noob", icon: "🏙️" },
-            { name: "Zombie Survival", creator: "Survivor", icon: "🧟" }
+            { name: "Chaos City", icon: "🏙️", creator: "Admin" },
+            { name: "Sword Arena", icon: "🛡️", creator: "Knight" },
+            { name: "Mega Obby", icon: "🏁", creator: "Speedy" },
+            { name: "Brick Battle", icon: "💣", creator: "Pro" },
+            { name: "Happy House", icon: "🏡", creator: "User99" }
         ];
 
-        function load() {
-            const list = document.getElementById('gamesList');
+        function loadGames() {
+            const grid = document.getElementById('gameGrid');
             games.forEach(g => {
-                const div = document.createElement('div');
-                div.className = 'game-box';
-                div.innerHTML = `
-                    <div style="font-size: 40px; background: white; margin-bottom: 5px;">${g.icon}</div>
-                    <div style="font-weight: bold; font-size: 12px;">${g.name}</div>
-                    <div style="font-size: 10px; color: #666;">By ${g.creator}</div>
-                    <button style="margin-top: 5px; cursor: pointer;">PLAY</button>
+                const box = document.createElement('div');
+                box.className = 'item-box';
+                box.innerHTML = `
+                    <div class="thumbnail">${g.icon}</div>
+                    <div style="font-weight: bold;">${g.name}</div>
+                    <div style="font-size: 11px; color: #555;">By ${g.creator}</div>
+                    <button style="margin-top: 8px; width: 100%; cursor: pointer;">PLAY</button>
                 `;
-                list.appendChild(div);
+                grid.appendChild(box);
             });
         }
 
-        function downloadGame() {
-            const code = `# Playno Script\nprint("Loading Engine...")`;
+        function downloadEngine() {
+            const code = `# Playno Engine Code\nprint("Engine Running...")`;
             const blob = new Blob([code], { type: 'text/plain' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'playno.py';
+            a.download = 'playno_engine.py';
             a.click();
-            alert("DOWNLOADING ENGINE...");
+            alert("DOWNLOADING ENGINE... INSTALL PYTHON TO RUN!");
         }
 
-        load();
+        loadGames();
     </script>
 </body>
 </html>
