@@ -23,12 +23,22 @@
         <p style="font-size: 11px;"><a href="signup.html">Need an account?</a> | <a href="index.html">Home</a></p>
     </div>
     <script>
+        // Try to get the API Key from various possible environment locations
+        const envApiKey = (typeof __firebase_config !== 'undefined' && JSON.parse(__firebase_config).apiKey) 
+                          || (typeof process !== 'undefined' && process.env && process.env.FIREBASE_API_KEY)
+                          || ""; // Fallback to empty if not found
+
         const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {
-            apiKey: "", 
-            projectId: "playno-auth"
+            apiKey: envApiKey, 
+            projectId: "playno-auth",
+            authDomain: "playno-auth.firebaseapp.com"
         };
 
+        // Initialize Firebase safely
         if (!firebase.apps.length) {
+            if (!firebaseConfig.apiKey) {
+                console.error("FIREBASE ERROR: API Key is missing. Check your GitHub Secrets naming.");
+            }
             firebase.initializeApp(firebaseConfig);
         }
 
@@ -47,7 +57,12 @@
                 await auth.signInWithEmailAndPassword(u + "@playno.local", p);
                 window.location.href = "index.html";
             } catch(e) { 
-                alert("Login Error: " + e.message); 
+                console.error("Login Failure:", e);
+                if (e.code === 'auth/invalid-api-key') {
+                    alert("System Error: The API Key 'FIREBASE_API_KEY' is not being recognized. Make sure it is spelled exactly right in your settings!");
+                } else {
+                    alert("Login Error: " + e.message); 
+                }
             }
         }
     </script>
