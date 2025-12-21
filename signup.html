@@ -2,66 +2,108 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>PLAYNO - LOGIN</title>
+    <title>PLAYNO - JOIN</title>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     <style>
-        body { background-color: #1c5ba3; font-family: Verdana; display: flex; justify-content: center; padding-top: 100px; }
-        .box { background: white; border: 2px solid black; padding: 30px; width: 300px; text-align: center; box-shadow: 10px 10px 0px rgba(0,0,0,0.5); }
-        input { width: 90%; padding: 8px; margin-bottom: 10px; font-family: Verdana; font-size: 11px; }
-        .btn { width: 100%; padding: 10px; background: #3498db; color: white; border: 1px solid black; font-weight: bold; cursor: pointer; }
+        body { background-color: #1c5ba3; font-family: Verdana; display: flex; justify-content: center; padding-top: 50px; }
+        .box { background: white; border: 2px solid black; padding: 30px; width: 350px; box-shadow: 10px 10px 0px rgba(0,0,0,0.5); }
+        input, select { width: 93%; padding: 8px; margin-bottom: 15px; font-family: Verdana; font-size: 11px; }
+        .btn { width: 100%; padding: 12px; background: #44c767; color: white; font-weight: bold; border: 2px solid #18ab29; cursor: pointer; }
+        label { display: block; text-align: left; font-size: 10px; font-weight: bold; margin-bottom: 2px; }
     </style>
 </head>
 <body>
     <div class="box">
-        <h2 style="font-family: 'Comic Sans MS'; color: red;">LOGIN</h2>
+        <h2 style="font-family: 'Comic Sans MS'; color: red; text-align: center;">SIGN UP</h2>
         
-        <input type="text" id="u" placeholder="Username">
-        <input type="password" id="p" placeholder="Password">
+        <label>Username:</label>
+        <input type="text" id="u" placeholder="Choose Username" maxlength="20">
         
-        <button class="btn" onclick="doLogin()">LOG IN</button>
-        <p style="font-size: 11px;"><a href="signup.html">Need an account?</a> | <a href="index.html">Home</a></p>
+        <label>Password:</label>
+        <input type="password" id="p" placeholder="Choose Password">
+        
+        <label>Birthday:</label>
+        <input type="date" id="bday">
+        
+        <label>Gender:</label>
+        <select id="gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+
+        <button class="btn" onclick="doSignup()">JOIN PLAYNO!</button>
+        <p style="text-align:center"><a href="login.html">Already have an account?</a> | <a href="index.html">Home</a></p>
     </div>
     <script>
-        // Try to get the API Key from various possible environment locations
-        const envApiKey = (typeof __firebase_config !== 'undefined' && JSON.parse(__firebase_config).apiKey) 
-                          || (typeof process !== 'undefined' && process.env && process.env.FIREBASE_API_KEY)
-                          || ""; // Fallback to empty if not found
-
+        /**
+         * SECURE KEY LOADING GUIDE:
+         * 1. Go to your GitHub Repo -> Settings -> Secrets and Variables -> Actions.
+         * 2. Add a new secret named 'FIREBASE_CONFIG'.
+         * 3. In your CI/CD pipeline (Actions), inject this into your build.
+         * * For local testing, the platform provides __firebase_config automatically.
+         */
         const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {
-            apiKey: envApiKey, 
+            apiKey: "", // LEAVE THIS BLANK ON GITHUB
             projectId: "playno-auth",
-            authDomain: "playno-auth.firebaseapp.com"
+            authDomain: "playno-auth.firebaseapp.com",
+            databaseURL: "https://playno-auth-default-rtdb.firebaseio.com"
         };
 
         // Initialize Firebase safely
         if (!firebase.apps.length) {
             if (!firebaseConfig.apiKey) {
-                console.error("FIREBASE ERROR: API Key is missing. Check your GitHub Secrets naming.");
+                console.warn("Warning: No API Key found in configuration.");
             }
             firebase.initializeApp(firebaseConfig);
         }
 
-        async function doLogin() {
+        async function doSignup() {
             const u = document.getElementById('u').value.trim();
             const p = document.getElementById('p').value;
-
-            if (!u || !p) {
-                alert("Please enter username and password!");
-                return;
+            const bday = document.getElementById('bday').value;
+            const gender = document.getElementById('gender').value;
+            
+            // Username Length Validation (3-20)
+            if(u.length < 3) return alert("Username must be at least 3 characters!");
+            if(u.length > 20) return alert("Username is too long! (Max 20)");
+            
+            // Regex for alphanumeric + underscores
+            const validUserRegex = /^[a-zA-Z0-9_]+$/;
+            if(!validUserRegex.test(u)) {
+                return alert("Username can only contain letters, numbers, and underscores (_).");
             }
 
+            if(p.length < 6) return alert("Password must be at least 6 characters!");
+            if(!bday) return alert("Please select your birthday!");
+            
             try {
                 const auth = firebase.auth();
-                // We use the same virtual domain as signup to keep it username-only for the user
-                await auth.signInWithEmailAndPassword(u + "@playno.local", p);
+                const db = firebase.database();
+
+                // Check if initialized properly
+                if (!auth) throw new Error("Firebase Auth failed to initialize.");
+
+                const cred = await auth.createUserWithEmailAndPassword(u + "@playno.local", p);
+                
+                await db.ref('users/' + cred.user.uid + '/profile').set({
+                    username: u,
+                    birthday: bday,
+                    gender: gender,
+                    joined: Date.now()
+                });
+
+                await cred.user.updateProfile({ displayName: u });
+                
+                alert("Account created successfully!");
                 window.location.href = "index.html";
             } catch(e) { 
-                console.error("Login Failure:", e);
-                if (e.code === 'auth/invalid-api-key') {
-                    alert("System Error: The API Key 'FIREBASE_API_KEY' is not being recognized. Make sure it is spelled exactly right in your settings!");
+                console.error("Signup Error:", e);
+                if (e.code === 'auth/invalid-api-key' || e.message.includes('api-key')) {
+                    alert("API KEY ERROR: You need to add your Firebase API Key to your project settings. Check the code comments for the guide!");
                 } else {
-                    alert("Login Error: " + e.message); 
+                    alert("Error: " + e.message); 
                 }
             }
         }
