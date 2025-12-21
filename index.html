@@ -111,19 +111,7 @@
             height: fit-content;
         }
 
-        .ad-space {
-            background: black;
-            color: white;
-            height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            border: 4px solid #00ff00;
-            margin-bottom: 20px;
-            animation: shake 0.5s infinite;
-        }
-
+        /* --- DOWNLOAD SECTION --- */
         .main-content { flex: 1; }
 
         .download-zone {
@@ -176,11 +164,6 @@
         .blink { animation: blinker 0.2s linear infinite; color: red; font-weight: bold; }
 
         @keyframes blinker { 50% { opacity: 0; } }
-        @keyframes shake {
-            0% { transform: translate(1px, 1px) rotate(0deg); }
-            10% { transform: translate(-1px, -2px) rotate(-1deg); }
-            20% { transform: translate(-3px, 0px) rotate(1deg); }
-        }
 
         .footer {
             background: #000;
@@ -198,44 +181,35 @@
     <div class="header">
         <div class="logo-box"></div>
         <div class="motto-flash">★ FUN FOR ALL ★</div>
-        <div style="background: white; padding: 10px; border: 2px solid black;">
-            <b>Users Online:</b> 6,432<br>
-            <b>Playno Points:</b> 1,250<br>
-            <b>Rank:</b> Junior Creator
-        </div>
     </div>
 
     <div class="marquee-zone">
-        <marquee scrollamount="15">!!! NEW UPDATE !!! BUILD YOUR OWN WORLD !!! DOWNLOAD NOW !!! CLICK THE BIG BUTTON !!! NO VIRUS !!! 100% FREE !!! ALL ASSETS NOW UNLOCKED !!!</marquee>
+        <marquee scrollamount="15">!!! NEW UPDATE !!! BUILD YOUR OWN WORLD !!! DOWNLOAD NOW !!! CLICK THE BIG BUTTON !!! NO VIRUS !!! 100% FREE !!!</marquee>
     </div>
 
     <div class="nav">
         <a href="#" class="nav-link">HOME</a>
         <a href="#" class="nav-link">GAMES</a>
-        <a href="#" class="nav-link">ASSET SHOP</a>
-        <a href="#" class="nav-link">PRO BUILDERS</a>
-        <a href="#" class="nav-link">COMMUNITY</a>
+        <a href="#" class="nav-link">CATALOG</a>
+        <a href="#" class="nav-link">FORUMS</a>
     </div>
 
     <div class="container">
         <div class="sidebar">
-            <div class="ad-space">
-                <h2>JOIN THE<br>PRO BUILDERS<br>CREW!!</h2>
-            </div>
             <div style="border: 2px inset white; padding: 5px; background: #999;">
-                <h3>Legendary Creators</h3>
-                1. MasterBuilder<br>
-                2. ScriptWizard<br>
+                <h3>Top Players</h3>
+                1. Builderman<br>
+                2. Telamon<br>
                 3. You?
             </div>
             <br>
-            <center><img src="https://via.placeholder.com/150x200?text=FREE+OUTFIT" style="border: 4px solid blue;"></center>
+            <center><img src="https://via.placeholder.com/150x200?text=COOL+AVATAR" style="border: 4px solid blue;"></center>
         </div>
 
         <div class="main-content">
             <div class="download-zone">
                 <h1 class="blink">>>> SYSTEM ALERT: ENGINE READY <<<</h1>
-                <p>Click below to install the Playno Game Engine 2008 Edition! Everyone gets full building permissions!</p>
+                <p>Click below to install the Playno Game Engine 2008 Edition!</p>
                 <br>
                 <button class="big-red-button" onclick="downloadGame()">
                     INSTALL PLAYNO.EXE (PY)
@@ -247,51 +221,49 @@
                 </div>
             </div>
 
-            <h2 style="color: yellow; text-shadow: 2px 2px black; font-size: 30px;">TOP COMMUNITY MAPS</h2>
-            <div class="games-mess" id="gamesGrid">
-                </div>
+            <h2 style="color: yellow; text-shadow: 2px 2px black; font-size: 30px;">HOT GAMES</h2>
+            <div class="games-mess" id="gamesGrid"></div>
         </div>
     </div>
 
     <div class="footer">
-        <p>PLAYNO is an open project for everyone! No subscriptions required!</p>
+        <p>PLAYNO is for everyone!</p>
         <p>Copyright 2008 - 2025 | Built with passion</p>
         <div style="font-size: 40px;">🧱 🕹️ 🏗️</div>
     </div>
 
     <script>
         const games = [
-            { name: "Super Obby", creator: "MapMaker", likes: 500, emoji: "🌋" },
-            { name: "Shatter Physics", creator: "PhysicsFan", likes: 1200, emoji: "💣" },
-            { name: "Town Square RP", creator: "CityBuilder", likes: 45, emoji: "🏠" },
-            { name: "Fortress Defense", creator: "Commander", likes: 999, emoji: "🛡️" }
+            { name: "Super Obby", creator: "NoobMaster", emoji: "🌋" },
+            { name: "Destroy the Wall", creator: "Admin", emoji: "💣" },
+            { name: "City Life RP", creator: "Roleplayer", emoji: "🏠" },
+            { name: "Base Wars", creator: "Soldier", emoji: "🔫" }
         ];
 
         function loadGames() {
             const grid = document.getElementById('gamesGrid');
-            games.forEach((game, index) => {
+            games.forEach((game) => {
                 const item = document.createElement('div');
                 item.className = 'game-item';
                 item.innerHTML = `
                     <div class="thumb">${game.emoji}</div>
                     <b>${game.name}</b><br>
                     <small>By: ${game.creator}</small><br>
-                    <span style="color: green;">Rating: ${game.likes}%</span><br>
-                    <button onclick="alert('Launching ${game.name}...')">PLAY</button>
+                    <button onclick="alert('Downloading ${game.name}...')">PLAY</button>
                 `;
                 grid.appendChild(item);
             });
         }
 
         function downloadGame() {
-            const code = `# Playno Engine Script\nprint("PLAYNO ENGINE INITIALIZED")`;
+            const code = `# Playno Script\nprint("PLAYNO STARTING...")`;
             const blob = new Blob([code], { type: 'text/plain' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'playno_engine.py';
+            a.download = 'game.py';
             a.click();
-            alert('ENGINE DOWNLOADED!! HAPPY BUILDING!!');
+            alert('GAME DOWNLOADED!!');
         }
 
         for(let i=0; i<30; i++) {
