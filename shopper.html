@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PLAYNO - SHOPPER</title>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <style>
+        body { background-color: #1c5ba3; font-family: Verdana; font-size: 11px; margin: 0; }
+        .main-container { width: 900px; background: white; margin: 10px auto; border: 1px solid #000; min-height: 100vh; display: flex; flex-direction: column; }
+        .nav-bar { background: #eee; border-bottom: 1px solid #999; padding: 8px; text-align: center; }
+        .nav-btn { background: #ddd; border: 2px outset #fff; padding: 4px 20px; margin: 0 5px; text-decoration: none; color: black; font-weight: bold; display: inline-block; }
+        .content { padding: 20px; text-align: center; flex-grow: 1; }
+        .empty-msg { border: 2px dashed #ccc; padding: 40px; color: #999; font-style: italic; margin-top: 20px; }
+        .header-box { background: #003366; color: white; padding: 10px; font-weight: bold; text-align: left; }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="nav-bar">
+            <a href="index.html" class="nav-btn">Home</a>
+            <a href="games.html" class="nav-btn">Games</a>
+            <a href="shopper.html" class="nav-btn">Shopper</a>
+            <a href="forum.html" class="nav-btn">Forum</a>
+        </div>
+        <div class="content">
+            <div class="header-box">SHOPPER</div>
+            <div class="empty-msg">
+                The Shopper is currently empty. Check back later for cool items!
+            </div>
+        </div>
+    </div>
+    <script>
+        const envApiKey = (typeof __firebase_config !== 'undefined' && JSON.parse(__firebase_config).apiKey) || "";
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : { apiKey: envApiKey, projectId: "playno-auth" };
+        if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+    </script>
+</body>
+</html>
