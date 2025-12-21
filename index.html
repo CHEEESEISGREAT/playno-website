@@ -9,18 +9,11 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 
     <style>
-        /* --- CUSTOM SMILEY CURSOR --- */
-        html, body, a, button, input {
-            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><path d='M1 1 L15 28 L28 1 Z' fill='red' stroke='black' stroke-width='1'/><path d='M8 10 Q14 18 20 10' fill='none' stroke='white' stroke-width='2' stroke-linecap='round'/></svg>"), auto !important;
-        }
-
-        /* --- THE 2008 AESTHETIC --- */
         body {
             background-color: #1c5ba3;
             background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABtJREFUeNpiZGBg+M+AAxCn4sQjDwYYOwoQEAAhYgB1008r/QAAAABJRU5ErkJggg==');
             font-family: 'Verdana', 'Arial', sans-serif;
             margin: 0; padding: 0; font-size: 11px; color: #333;
-            overflow-x: hidden;
         }
 
         .main-container {
@@ -33,13 +26,11 @@
             flex-direction: column;
         }
 
-        /* --- HEADER --- */
         .header {
             background: linear-gradient(to bottom, #7abcff 0%, #4096ee 50%, #4096ee 100%);
             height: 100px;
             border-bottom: 2px solid #003366;
             position: relative;
-            flex-shrink: 0;
         }
 
         .logo-area {
@@ -53,120 +44,40 @@
         .auth-status {
             float: right; padding: 10px; color: white;
             font-weight: bold; text-shadow: 1px 1px black;
-            font-size: 12px;
         }
 
-        /* --- NAVIGATION --- */
         .nav-bar {
             background: #eee; border-bottom: 1px solid #999;
             padding: 8px; text-align: center;
         }
+
         .nav-btn {
             background: #ddd; border: 2px outset #fff;
             padding: 4px 20px; margin: 0 5px;
             text-decoration: none; color: black; font-weight: bold;
             display: inline-block;
         }
+
         .nav-btn:hover { background: #ccc; }
-        .nav-btn:active { border-style: inset; }
 
-        /* --- CONTENT AREA --- */
-        .content-wrapper {
-            display: flex; padding: 15px; gap: 15px; flex-grow: 1;
-        }
-
-        .sidebar { width: 200px; flex-shrink: 0; }
-        .sidebar-box { border: 1px solid #003366; margin-bottom: 15px; box-shadow: 2px 2px 0px #ccc; }
-        .sidebar-header {
-            background: #003366; color: white; padding: 5px;
-            font-weight: bold; text-align: center; font-size: 12px;
-        }
+        .content-wrapper { display: flex; padding: 15px; gap: 15px; flex-grow: 1; }
+        .sidebar { width: 200px; }
+        .sidebar-box { border: 1px solid #003366; margin-bottom: 15px; }
+        .sidebar-header { background: #003366; color: white; padding: 5px; font-weight: bold; text-align: center; }
         .sidebar-content { padding: 10px; background: #eef; text-align: center; }
-        
-        input[type="text"], input[type="password"] {
-            width: 90%; margin-bottom: 8px; border: 1px solid #777;
-            padding: 3px; font-size: 11px;
-        }
 
-        .btn-action {
-            background: #eee; border: 1px solid #333;
-            padding: 3px 10px; font-weight: bold; cursor: pointer;
-        }
-
-        /* --- MAIN CONTENT --- */
         .main-content { flex-grow: 1; }
-        
-        .big-alert-box {
+        .welcome-banner {
             background: #ffffcc; border: 2px solid #ffcc00;
             padding: 20px; margin-bottom: 20px; text-align: center;
         }
 
-        .download-btn {
-            background: linear-gradient(to bottom, #44c767 5%, #5cbf2a 100%);
-            background-color: #44c767; border: 3px solid #18ab29;
-            display: inline-block; color: #ffffff; font-family: Arial;
-            font-size: 26px; font-weight: bold; padding: 15px 40px;
-            text-decoration: none; text-shadow: 1px 1px 0px #2f6627;
-            border-radius: 8px; box-shadow: 0px 4px 0px #18ab29;
-        }
-
-        /* --- GAMES LIST --- */
-        .game-card {
-            border: 1px solid #ccc; background: #fff;
-            padding: 10px; margin-bottom: 10px;
-            display: flex; align-items: center; gap: 15px;
-        }
-        .game-icon {
-            width: 70px; height: 70px; background: #eee;
-            border: 1px solid #999; display: flex;
-            align-items: center; justify-content: center; font-size: 40px;
-        }
-        .game-details h3 { margin: 0 0 5px 0; color: #003366; }
+        .footer { border-top: 1px solid #999; text-align: center; padding: 20px; font-size: 10px; background: #f1f1f1; }
         
-        .dl-game-btn {
-            margin-left: auto; background: #3498db;
-            color: white; border: 1px solid #000;
-            padding: 8px 12px; font-weight: bold; text-decoration: none;
-        }
-
-        /* --- MODALS --- */
-        .overlay {
-            display: none; position: fixed; top: 0; left: 0;
-            width: 100%; height: 100%; background: rgba(0,0,0,0.8);
-            z-index: 9999; justify-content: center; align-items: center;
-        }
-        .modal-box {
-            background: white; border: 5px solid #003366;
-            padding: 25px; width: 450px; box-shadow: 15px 15px 0px rgba(0,0,0,0.4);
-        }
-        .modal-box h2 { font-family: 'Comic Sans MS'; color: red; margin-top: 0; }
-
-        .footer {
-            border-top: 1px solid #999; text-align: center;
-            padding: 20px; font-size: 10px; color: #777;
-            background: #f1f1f1; margin-top: auto;
-        }
+        a { color: #003366; }
     </style>
 </head>
 <body>
-
-    <div id="dl-modal" class="overlay">
-        <div class="modal-box">
-            <h2>INSTALLATION REQUIRED!</h2>
-            <div style="font-family: Verdana; font-size: 12px; line-height: 1.6;">
-                <p>To play <b>PLAYNO</b> games, follow these steps:</p>
-                <ol>
-                    <li>Go to your <b>(C:) Drive</b>.</li>
-                    <li>Create folder: <code style="background:#eee;">Playno-Game</code></li>
-                    <li>Inside that, create: <code style="background:#eee;">games</code></li>
-                    <li>Put the <b>.plno</b> file into the <b>games</b> folder.</li>
-                    <li>Run <b>game.py</b>.</li>
-                </ol>
-            </div>
-            <button class="btn-action" style="width: 100%; padding: 10px;" onclick="closeModal()">I UNDERSTAND</button>
-        </div>
-    </div>
-
     <div class="main-container">
         <div class="header">
             <div class="logo-area">PLAYNO</div>
@@ -175,97 +86,90 @@
                     Welcome, Guest! [ <a href="login.html" style="color: yellow;">Login</a> ] [ <a href="signup.html" style="color: yellow;">Register</a> ]
                 </div>
                 <div id="user-header" style="display: none;">
-                    Welcome, <span id="display-name" style="color: #fff;">User</span>! 
-                    [ <a href="#" onclick="handleLogout()" style="color: yellow;">Log Out</a> ]
+                    Welcome, <span id="display-name" style="color: #fff;">User</span>! [ <a href="#" onclick="logout()" style="color: yellow;">Log Out</a> ]
                 </div>
             </div>
         </div>
 
         <div class="nav-bar">
             <a href="index.html" class="nav-btn">Home</a>
-            <a href="#games" class="nav-btn">Games</a>
-            <a href="#" class="nav-btn">Catalog</a>
-            <a href="#" class="nav-btn">Forum</a>
+            <a href="games.html" class="nav-btn">Games</a>
+            <a href="shopper.html" class="nav-btn">Shopper</a>
+            <a href="forum.html" class="nav-btn">Forum</a>
         </div>
 
         <div class="content-wrapper">
             <div class="sidebar">
-                <div id="side-login-box" class="sidebar-box">
-                    <div class="sidebar-header">Member Login</div>
+                <div class="sidebar-box">
+                    <div class="sidebar-header">Community</div>
                     <div class="sidebar-content">
-                        <div id="error-msg" style="color:red; display:none;">Error!</div>
-                        <input type="text" id="login-user" placeholder="Username">
-                        <input type="password" id="login-pass" placeholder="Password">
-                        <button class="btn-action" onclick="handleLogin()">Login</button>
-                        <p style="font-size: 9px; margin-top: 10px;">No account? <a href="signup.html">Join!</a></p>
+                        Check out our <a href="forum.html">Forums</a> to talk with other players!
+                    </div>
+                </div>
+                <div class="sidebar-box">
+                    <div class="sidebar-header">Shop</div>
+                    <div class="sidebar-content">
+                        Visit the <a href="shopper.html">Shopper</a> to customize your character.
                     </div>
                 </div>
             </div>
-
+            
             <div class="main-content">
-                <div class="big-alert-box">
-                    <h1 style="font-family: 'Comic Sans MS'; color: red; margin: 0;">PLAYNO ENGINE</h1>
-                    <p style="font-weight: bold;">Create, Build, and Play with friends!</p>
-                    <br>
-                    <button class="download-btn" onclick="downloadEngine()">DOWNLOAD ENGINE</button>
+                <div class="welcome-banner">
+                    <h1 style="font-family: 'Comic Sans MS'; color: red; margin: 0;">PLAYNO ONLINE</h1>
+                    <p style="font-weight: bold;">Building the future of gaming, one block at a time.</p>
+                </div>
+                
+                <h2>What's New?</h2>
+                <div style="border-left: 3px solid #4096ee; padding-left: 10px; margin-bottom: 20px;">
+                    <strong>Site Launch!</strong><br>
+                    Welcome to the brand new Playno website. We've just added the <a href="forum.html">Forum</a> and <a href="shopper.html">Shopper</a> links. Get started by <a href="signup.html">registering an account</a>!
                 </div>
 
-                <h2 id="games" style="border-bottom: 2px solid blue; color: blue; font-family: 'Comic Sans MS';">Cool Games</h2>
-                <div id="games-container">
-                    <div class="game-card">
-                        <div class="game-icon">🏙️</div>
-                        <div class="game-details">
-                            <h3>Mega City 2008</h3>
-                            <p>Created by: <b>Admin</b></p>
-                        </div>
-                        <button class="dl-game-btn" onclick="downloadGame('MegaCity')">Download Game</button>
-                    </div>
-                </div>
+                <h2>Featured Games</h2>
+                <p>No games are featured right now. Visit the <a href="games.html">Games Page</a> to see what's available!</p>
             </div>
         </div>
 
         <div class="footer">
-            PLAYNO &copy; 2008-2025. All rights reserved. <br>
-            <i>Best viewed in Internet Explorer 7 or 8.</i>
+            PLAYNO &copy; 2008-2025<br>
+            All scripts and assets are property of Playno.
         </div>
     </div>
 
     <script>
-        const firebaseConfig = { apiKey: "YOUR_API_KEY", projectId: "your-project" };
-        firebase.initializeApp(firebaseConfig);
+        const envApiKey = (typeof __firebase_config !== 'undefined' && JSON.parse(__firebase_config).apiKey) || "";
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : { 
+            apiKey: envApiKey, 
+            projectId: "playno-auth" 
+        };
 
-        firebase.auth().onAuthStateChanged(user => {
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+
+        const auth = firebase.auth();
+
+        // Listen for Auth changes
+        auth.onAuthStateChanged(user => {
+            const guestHeader = document.getElementById('guest-header');
+            const userHeader = document.getElementById('user-header');
+            const displayName = document.getElementById('display-name');
+
             if (user) {
-                document.getElementById('guest-header').style.display = 'none';
-                document.getElementById('side-login-box').style.display = 'none';
-                document.getElementById('user-header').style.display = 'block';
-                document.getElementById('display-name').innerText = user.displayName || user.email.split('@')[0];
+                guestHeader.style.display = 'none';
+                userHeader.style.display = 'block';
+                displayName.innerText = user.displayName || "User";
             } else {
-                document.getElementById('guest-header').style.display = 'block';
-                document.getElementById('side-login-box').style.display = 'block';
-                document.getElementById('user-header').style.display = 'none';
+                guestHeader.style.display = 'block';
+                userHeader.style.display = 'none';
             }
         });
 
-        async function handleLogin() {
-            const u = document.getElementById('login-user').value;
-            const p = document.getElementById('login-pass').value;
-            try {
-                await firebase.auth().signInWithEmailAndPassword(u + "@playno.local", p);
-            } catch (e) { alert("Login failed!"); }
-        }
-
-        function handleLogout() { firebase.auth().signOut(); }
-        function downloadEngine() { window.location.href = "game.py"; }
-        function closeModal() { document.getElementById('dl-modal').style.display = 'none'; }
-
-        function downloadGame(gameName) {
-            const gameData = { name: gameName, parts: [{pos:[0,0,0], size:[100,100,1], color:[0.3,0.3,0.3,1]}] };
-            const blob = new Blob([JSON.stringify(gameData)], {type: "application/json"});
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url; a.download = gameName + ".plno"; a.click();
-            document.getElementById('dl-modal').style.display = 'flex';
+        function logout() {
+            auth.signOut().then(() => {
+                window.location.reload();
+            });
         }
     </script>
 </body>
