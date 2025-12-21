@@ -8,7 +8,7 @@
         /* --- THE 2008 AESTHETIC --- */
         body {
             background-color: #1c5ba3;
-            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABtJREFUeNpiZGBg+M+AAxCn4sQjDwYYOwoQEAAhYgB1008r/QAAAABJRU5ErkJggg=='); /* Tiny dots pattern */
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABtJREFUeNpiZGBg+M+AAxCn4sQjDwYYOwoQEAAhYgB1008r/QAAAABJRU5ErkJggg==');
             font-family: 'Verdana', 'Arial', sans-serif;
             margin: 0;
             padding: 0;
@@ -28,7 +28,6 @@
 
         /* --- HEADER --- */
         .header {
-            background: url('https://via.placeholder.com/900x100/3498db/ffffff?text=PLAYNO+BANNER'); /* Fallback */
             background: linear-gradient(to bottom, #7abcff 0%, #4096ee 50%, #4096ee 100%);
             height: 100px;
             border-bottom: 2px solid #003366;
@@ -71,7 +70,7 @@
         .nav-btn {
             background: #ddd;
             border: 2px outset #fff;
-            padding: 2px 10px;
+            padding: 2px 15px;
             margin: 0 5px;
             text-decoration: none;
             color: black;
@@ -81,12 +80,11 @@
 
         /* --- CONTENT LAYOUT --- */
         .content-wrapper {
-            display: flex; /* Cheating slightly with flexbox to keep it stable, but styling looks old */
+            display: flex;
             padding: 10px;
             gap: 10px;
         }
 
-        /* --- SIDEBAR (MESSY) --- */
         .sidebar {
             width: 180px;
             flex-shrink: 0;
@@ -111,13 +109,14 @@
             text-align: center;
         }
 
-        .fake-ad {
-            background: black;
-            color: lime;
-            padding: 20px 5px;
-            font-family: monospace;
+        .featured-box {
+            background: #ffecb3;
+            border: 2px dashed #ffa000;
+            padding: 15px 5px;
+            font-family: 'Comic Sans MS';
             margin-bottom: 10px;
-            border: 2px dashed red;
+            text-align: center;
+            font-weight: bold;
         }
 
         /* --- MAIN CONTENT --- */
@@ -133,7 +132,6 @@
             text-align: center;
         }
 
-        /* --- DOWNLOAD BUTTON 2008 STYLE --- */
         .download-btn {
             background: linear-gradient(to bottom, #44c767 5%, #5cbf2a 100%);
             background-color: #44c767;
@@ -150,9 +148,7 @@
             border-radius: 5px;
         }
         .download-btn:hover { background: linear-gradient(to bottom, #5cbf2a 5%, #44c767 100%); }
-        .download-btn:active { position: relative; top: 1px; }
 
-        /* --- GAMES LIST --- */
         .game-entry {
             border: 1px solid #ccc;
             background: #f9f9f9;
@@ -187,7 +183,6 @@
             cursor: pointer;
         }
 
-        /* --- FOOTER --- */
         .footer {
             border-top: 1px solid #ccc;
             text-align: center;
@@ -217,7 +212,6 @@
             <a href="#games" class="nav-btn">Games</a>
             <a href="#" class="nav-btn">Catalog</a>
             <a href="#" class="nav-btn">People</a>
-            <a href="#" class="nav-btn">Builders Club</a>
             <a href="#" class="nav-btn">Forum</a>
         </div>
 
@@ -233,8 +227,9 @@
                     </div>
                 </div>
 
-                <div class="fake-ad">
-                    CLICK HERE FOR FREE ROBUX (jk)
+                <div class="featured-box">
+                    NEW FEATURE:<br>
+                    Physics Engine Updated!
                 </div>
 
                 <div class="sidebar-box">
@@ -265,10 +260,9 @@
                     </div>
                 </div>
 
-                <h2 style="border-bottom: 2px solid blue; color: blue; font-family: 'Comic Sans MS';">Cool Games</h2>
+                <h2 id="games" style="border-bottom: 2px solid blue; color: blue; font-family: 'Comic Sans MS';">Cool Games</h2>
                 
-                <div id="games-list">
-                    </div>
+                <div id="games-list"></div>
 
             </div>
         </div>
@@ -276,17 +270,14 @@
         <div class="footer">
             PLAYNO &copy; 2008-2024. All rights reserved.<br>
             <a href="#">Privacy Policy</a> | <a href="#">Terms</a> | <a href="#">Jobs</a>
-            <br>
-            <br>
+            <br><br>
             Best viewed in Internet Explorer 7.
         </div>
     </div>
 
     <script>
-        // --- CONFIGURATION ---
         const REPO_FILE_URL = 'https://raw.githubusercontent.com/CHEEESEISGREAT/playno-website/main/game.py';
 
-        // --- GAME DATABASE ---
         const games = [
             {
                 name: "City",
