@@ -199,8 +199,9 @@
         <div class="logo-box"></div>
         <div class="motto-flash">★ FUN FOR ALL ★</div>
         <div style="background: white; padding: 10px; border: 2px solid black;">
-            <b>Logged in as:</b> Guest<br>
-            <b>Status:</b> Ready to Build
+            <b>Users Online:</b> 6,432<br>
+            <b>Playno Points:</b> 1,250<br>
+            <b>Rank:</b> Junior Creator
         </div>
     </div>
 
@@ -222,13 +223,13 @@
                 <h2>JOIN THE<br>PRO BUILDERS<br>CREW!!</h2>
             </div>
             <div style="border: 2px inset white; padding: 5px; background: #999;">
-                <h3>Recent Worlds</h3>
-                * Lava Jump<br>
-                * Brick City<br>
-                * Plane Test
+                <h3>Legendary Creators</h3>
+                1. MasterBuilder<br>
+                2. ScriptWizard<br>
+                3. You?
             </div>
             <br>
-            <center><img src="https://via.placeholder.com/150x200?text=YOUR+AVATAR" style="border: 4px solid blue;"></center>
+            <center><img src="https://via.placeholder.com/150x200?text=FREE+OUTFIT" style="border: 4px solid blue;"></center>
         </div>
 
         <div class="main-content">
@@ -246,7 +247,7 @@
                 </div>
             </div>
 
-            <h2 style="color: yellow; text-shadow: 2px 2px black; font-size: 30px;">LATEST CREATIONS</h2>
+            <h2 style="color: yellow; text-shadow: 2px 2px black; font-size: 30px;">TOP COMMUNITY MAPS</h2>
             <div class="games-mess" id="gamesGrid">
                 </div>
         </div>
@@ -260,10 +261,10 @@
 
     <script>
         const games = [
-            { name: "Super Obby", creator: "MapMaker", emoji: "🌋" },
-            { name: "Shatter Physics", creator: "PhysicsFan", emoji: "💣" },
-            { name: "Town Square RP", creator: "CityBuilder", emoji: "🏠" },
-            { name: "Fortress Defense", creator: "Commander", emoji: "🛡️" }
+            { name: "Super Obby", creator: "MapMaker", likes: 500, emoji: "🌋" },
+            { name: "Shatter Physics", creator: "PhysicsFan", likes: 1200, emoji: "💣" },
+            { name: "Town Square RP", creator: "CityBuilder", likes: 45, emoji: "🏠" },
+            { name: "Fortress Defense", creator: "Commander", likes: 999, emoji: "🛡️" }
         ];
 
         function loadGames() {
@@ -274,7 +275,8 @@
                 item.innerHTML = `
                     <div class="thumb">${game.emoji}</div>
                     <b>${game.name}</b><br>
-                    <small>By: ${game.creator}</small><br><br>
+                    <small>By: ${game.creator}</small><br>
+                    <span style="color: green;">Rating: ${game.likes}%</span><br>
                     <button onclick="alert('Launching ${game.name}...')">PLAY</button>
                 `;
                 grid.appendChild(item);
