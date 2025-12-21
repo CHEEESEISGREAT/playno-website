@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>!!! PLAYNO !!! - FUN FOR ALL</title>
+    <title>PLAYNO</title>
     <style>
-        /* --- THE CHAOS STARTS HERE --- */
         * { margin: 0; padding: 0; cursor: url('https://cur.cursors-4u.net/games/gam-4/gam373.cur'), auto !important; }
 
         body {
@@ -18,7 +17,6 @@
             overflow-x: hidden;
         }
 
-        /* --- THE CSS LOGO --- */
         .logo-box {
             width: 100px;
             height: 100px;
@@ -59,7 +57,6 @@
             display: flex;
             align-items: center;
             justify-content: space-around;
-            flex-wrap: wrap;
         }
 
         .motto-flash {
@@ -71,7 +68,6 @@
             transform: skewX(-20deg);
         }
 
-        /* --- NAVIGATION --- */
         .nav {
             background: #000;
             padding: 10px;
@@ -86,7 +82,6 @@
             padding: 5px;
             display: inline-block;
         }
-        .nav-link:hover { background: white; color: black; }
 
         .signup-header-btn {
             background: #ff00ff;
@@ -97,14 +92,6 @@
             text-decoration: none;
             font-size: 20px;
             box-shadow: 4px 4px 0px #000;
-            display: block;
-        }
-
-        .marquee-zone {
-            background: yellow;
-            border-bottom: 3px solid black;
-            font-weight: bold;
-            font-size: 20px;
         }
 
         .container {
@@ -115,37 +102,20 @@
             margin: auto;
         }
 
-        /* --- SIDEBAR --- */
         .sidebar {
             width: 250px;
             background: #ddd;
             border: 3px solid #000;
             padding: 10px;
-            height: fit-content;
         }
 
-        .ad-space {
-            background: black;
-            color: white;
-            height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            border: 4px solid red;
-            margin-bottom: 20px;
-            animation: shake 0.5s infinite;
-        }
-
-        /* --- MAIN CONTENT --- */
         .main-content { flex: 1; }
 
         .download-zone {
             background: #fff;
             border: 10px double #ff0000;
             padding: 30px;
-            transform: rotate(1deg);
-            margin-bottom: 30px;
+            text-align: center;
         }
 
         .big-red-button {
@@ -159,14 +129,13 @@
             width: 100%;
             font-family: "Impact", sans-serif;
         }
-        .big-red-button:active { transform: translate(5px, 5px); box-shadow: 5px 5px 0px black; }
 
-        /* --- GAMES GRID --- */
         .games-mess {
             display: flex;
             flex-wrap: wrap;
             gap: 30px;
             justify-content: center;
+            margin-top: 20px;
         }
 
         .game-item {
@@ -174,11 +143,8 @@
             border: 2px solid #000;
             width: 220px;
             padding: 15px;
-            box-shadow: 5px 5px 0px #333;
             text-align: center;
         }
-        .game-item:nth-child(even) { transform: rotate(3deg); background: #ccffcc; }
-        .game-item:nth-child(odd) { transform: rotate(-2deg); background: #ffffcc; }
 
         .thumb {
             font-size: 80px;
@@ -187,24 +153,12 @@
             margin-bottom: 10px;
         }
 
-        .blink { animation: blinker 0.2s linear infinite; color: red; font-weight: bold; }
-
-        @keyframes blinker { 50% { opacity: 0; } }
-        @keyframes shake {
-            0% { transform: translate(1px, 1px) rotate(0deg); }
-            10% { transform: translate(-1px, -2px) rotate(-1deg); }
-            20% { transform: translate(-3px, 0px) rotate(1deg); }
-        }
-
         .footer {
             background: #000;
             color: #aaa;
             padding: 50px;
             text-align: center;
-            margin-top: 50px;
         }
-
-        .star { position: absolute; color: yellow; font-size: 24px; pointer-events: none; }
     </style>
 </head>
 <body>
@@ -212,13 +166,7 @@
     <div class="header">
         <div class="logo-box"></div>
         <div class="motto-flash">★ FUN FOR ALL ★</div>
-        <div>
-            <a href="#" class="signup-header-btn">SIGN UP TODAY!</a>
-        </div>
-    </div>
-
-    <div class="marquee-zone">
-        <marquee scrollamount="15">!!! NEW UPDATE !!! BUILD YOUR OWN WORLD !!! DOWNLOAD NOW !!! CLICK THE BIG BUTTON !!! NO VIRUS !!! 100% FREE !!!</marquee>
+        <a href="#" class="signup-header-btn">SIGN UP TODAY!</a>
     </div>
 
     <div class="nav">
@@ -230,47 +178,34 @@
 
     <div class="container">
         <div class="sidebar">
-            <div class="ad-space">
-                <h2>GET OFFICIAL<br>PLAYNO GEAR<br>NOW!!</h2>
-            </div>
             <div style="border: 2px inset white; padding: 10px; background: #999;">
                 <h3 style="text-decoration: underline;">Community</h3>
-                No threads yet.
+                No threads.
             </div>
         </div>
 
         <div class="main-content">
             <div class="download-zone">
-                <h1 class="blink">>>> SYSTEM ALERT: ENGINE READY <<<</h1>
-                <p>Click below to install the Playno Engine!</p>
-                <br>
                 <button class="big-red-button" onclick="downloadEngine()">
-                    INSTALL GAME.PY
+                    DOWNLOAD GAME
                 </button>
-                
-                <div style="margin-top: 20px; font-family: monospace; background: #000; color: #0f0; padding: 10px;">
-                    C:\> python game.py
-                </div>
             </div>
 
-            <h2 style="color: yellow; text-shadow: 2px 2px black; font-size: 30px; background: black; padding: 5px; display: inline-block;">TRENDING GAMES</h2>
-            <div class="games-mess" id="gamesGrid">
-                </div>
+            <h2 style="color: yellow; text-shadow: 2px 2px black; font-size: 30px; background: black; padding: 5px; display: inline-block; margin-top: 20px;">GAMES</h2>
+            <div class="games-mess" id="gamesGrid"></div>
         </div>
     </div>
 
     <div class="footer">
-        <p>PLAYNO is 100% User Generated Fun!</p>
-        <p>Copyright 2008 - 2025 | Pure Brick Energy</p>
-        <div style="font-size: 40px;">🧱 🕹️ 🏗️</div>
+        <p>Copyright 2008 - 2025</p>
     </div>
 
     <script>
         const games = [
-            { name: "Chaos Canyon", creator: "Admin", likes: "98%", emoji: "⛰️" },
-            { name: "Crossroads", creator: "Admin", likes: "95%", emoji: "🚦" },
-            { name: "Glass Houses", creator: "Admin", likes: "92%", emoji: "💎" },
-            { name: "Brick Battle", creator: "Builder", likes: "100%", emoji: "💣" }
+            { name: "Chaos Canyon", creator: "Admin", emoji: "⛰️" },
+            { name: "Crossroads", creator: "Admin", emoji: "🚦" },
+            { name: "Glass Houses", creator: "Admin", emoji: "💎" },
+            { name: "Brick Battle", creator: "Builder", emoji: "💣" }
         ];
 
         function loadGames() {
@@ -280,33 +215,21 @@
                 item.className = 'game-item';
                 item.innerHTML = `
                     <div class="thumb">${game.emoji}</div>
-                    <b style="font-size:18px;">${game.name}</b><br>
-                    <small>By: ${game.creator}</small><br>
-                    <span style="color: green; font-weight:bold;">Rating: ${game.likes}</span><br><br>
-                    <button style="padding: 5px 20px; cursor: pointer; font-weight: bold;">PLAY GAME</button>
+                    <b>${game.name}</b><br>
+                    <small>By: ${game.creator}</small><br><br>
+                    <button style="padding: 5px 20px; cursor: pointer;">PLAY</button>
                 `;
                 grid.appendChild(item);
             });
         }
 
         function downloadEngine() {
-            const code = `# PLAYNO ENGINE LOAD\nprint("LOADING GAME...")`;
-            const blob = new Blob([code], { type: 'text/plain' });
+            const blob = new Blob(['print("PLAYNO")'], { type: 'text/plain' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
             a.download = 'game.py';
             a.click();
-        }
-
-        // Add random stars
-        for(let i=0; i<30; i++) {
-            let s = document.createElement('div');
-            s.className = 'star';
-            s.innerHTML = '★';
-            s.style.top = Math.random() * 2000 + 'px';
-            s.style.left = Math.random() * window.innerWidth + 'px';
-            document.body.appendChild(s);
         }
 
         loadGames();
