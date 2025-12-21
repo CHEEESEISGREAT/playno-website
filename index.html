@@ -3,309 +3,298 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>!!! PLAYNO !!! - FUN FOR ALL</title>
+    <title>PLAYNO - !!!FUN FOR ALL!!!</title>
     <style>
-        /* --- THE CHAOS STARTS HERE --- */
-        * { margin: 0; padding: 0; cursor: url('https://cur.cursors-4u.net/games/gam-4/gam373.cur'), auto !important; }
-
+        /* --- 2008 CHAOS ENGINE --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
-            background-color: #0055ff;
-            background-image: radial-gradient(#ffffff 5%, transparent 5%), radial-gradient(#ffffff 5%, transparent 5%);
-            background-size: 50px 50px;
-            background-position: 0 0, 25px 25px;
-            font-family: "Comic Sans MS", "Comic Sans", cursive;
+            background-color: #74b9ff;
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAF0lEQVQYV2NkIAIwpCH5f2ZGApD6/x8AFr8EAnunmYcAAAAASUVORK5CYII=');
+            font-family: "Comic Sans MS", "Verdana", sans-serif;
             color: #000;
-            overflow-x: hidden;
         }
 
-        /* --- THE CSS LOGO (The "Cool" Bloxy Logo) --- */
-        .logo-box {
-            width: 100px;
-            height: 100px;
-            background: #ff0000;
-            border: 5px solid #000;
-            position: relative;
-            display: inline-block;
-            transform: rotate(-10deg);
-            box-shadow: 8px 8px 0px #ffff00;
-        }
-        .logo-box::before {
-            content: "P";
-            color: white;
-            font-size: 70px;
-            font-weight: bold;
-            position: absolute;
-            top: 5px;
-            left: 20px;
-            text-shadow: 4px 4px #000;
-        }
-        .logo-box::after {
-            content: "PLAYNO";
-            position: absolute;
-            bottom: -30px;
-            left: -10px;
-            background: yellow;
-            color: black;
-            border: 2px solid black;
-            font-size: 20px;
-            padding: 2px 10px;
-            transform: rotate(5deg);
-        }
-
-        .header {
-            background: #cccccc;
-            border-bottom: 5px groove #eee;
-            padding: 40px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-            flex-wrap: wrap;
-        }
-
-        .motto-flash {
-            background: #ff00ff;
-            color: white;
-            padding: 10px;
-            border: 4px dashed yellow;
-            font-size: 25px;
-            transform: skewX(-20deg);
-        }
-
-        /* --- NAVIGATION MESS --- */
-        .nav {
-            background: #000;
-            padding: 10px;
-            text-align: center;
-        }
-        .nav-link {
-            color: #0f0;
-            text-decoration: none;
-            font-size: 18px;
-            margin: 0 15px;
-            border: 2px outset #666;
-            padding: 5px;
-        }
-        .nav-link:hover { background: white; color: black; }
-
-        .marquee-zone {
-            background: yellow;
-            border-bottom: 3px solid black;
-            font-weight: bold;
-            font-size: 20px;
-        }
-
-        .container {
-            display: flex;
-            padding: 20px;
-            gap: 20px;
-            max-width: 1200px;
-            margin: auto;
-        }
-
-        /* --- SIDEBAR CLUTTER --- */
-        .sidebar {
-            width: 250px;
-            background: #ddd;
-            border: 3px solid #000;
-            padding: 10px;
-            height: fit-content;
-        }
-
-        .ad-space {
-            background: black;
-            color: white;
-            height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            border: 4px solid red;
-            margin-bottom: 20px;
-            animation: shake 0.5s infinite;
-        }
-
-        /* --- DOWNLOAD SECTION --- */
-        .main-content { flex: 1; }
-
-        .download-zone {
-            background: #fff;
-            border: 10px double #ff0000;
+        /* --- THE LOGO & SPINNING STAR --- */
+        .header-main {
+            background: #d1d1d1;
+            border-bottom: 4px solid #444;
             padding: 30px;
-            transform: rotate(1deg);
-            margin-bottom: 30px;
-        }
-
-        .big-red-button {
-            background: linear-gradient(to bottom, #ff3300 0%, #990000 100%);
-            color: white;
-            font-size: 40px;
-            padding: 20px;
-            border: 5px solid black;
-            cursor: pointer;
-            box-shadow: 10px 10px 0px rgba(0,0,0,0.5);
-            width: 100%;
-            font-family: "Impact", sans-serif;
-        }
-        .big-red-button:active { transform: translate(5px, 5px); box-shadow: 5px 5px 0px black; }
-
-        /* --- GAMES GRID (UNORGANIZED) --- */
-        .games-mess {
             display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brick-logo {
+            width: 80px;
+            height: 80px;
+            background: #ff3838;
+            border: 4px solid black;
+            font-size: 60px;
+            color: white;
+            font-weight: 900;
+            display: flex;
             justify-content: center;
+            align-items: center;
+            transform: rotate(-12deg);
+            box-shadow: 10px 10px 0px rgba(0,0,0,0.2);
+            z-index: 5;
         }
 
-        .game-item {
-            background: #eee;
-            border: 2px solid #000;
-            width: 200px;
-            padding: 10px;
-            box-shadow: 5px 5px 0px #333;
+        .site-title {
+            font-family: "Impact", sans-serif;
+            font-size: 70px;
+            color: white;
+            text-shadow: 5px 5px #000;
+            margin-left: 20px;
+            letter-spacing: -3px;
         }
-        .game-item:nth-child(even) { transform: rotate(3deg); background: #ccffcc; }
-        .game-item:nth-child(odd) { transform: rotate(-2deg); background: #ffffcc; }
 
-        .thumb {
-            font-size: 80px;
+        .motto-container {
+            position: absolute;
+            right: 50px;
+            top: 10px;
+        }
+
+        .spinning-star {
+            width: 120px;
+            height: 120px;
+            background: #f1c40f;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            background: white;
-            border: 1px solid #999;
-            margin-bottom: 10px;
+            font-weight: bold;
+            color: #d35400;
+            font-size: 16px;
+            animation: spin 8s infinite linear;
+            border: 2px solid #000;
         }
 
-        .blink { animation: blinker 0.2s linear infinite; color: red; font-weight: bold; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-        @keyframes blinker { 50% { opacity: 0; } }
-        @keyframes shake {
-            0% { transform: translate(1px, 1px) rotate(0deg); }
-            10% { transform: translate(-1px, -2px) rotate(-1deg); }
-            20% { transform: translate(-3px, 0px) rotate(1deg); }
+        /* --- NAV BAR --- */
+        .nav {
+            background: #222;
+            padding: 10px;
+            border-bottom: 3px solid #ff3838;
+            text-align: center;
+        }
+        .nav a {
+            color: #00ff00;
+            text-decoration: none;
+            padding: 5px 20px;
+            font-weight: bold;
+            border: 2px outset #555;
+            margin: 0 5px;
+            background: #333;
+        }
+        .nav a:hover { background: #fff; color: #000; }
+
+        /* --- LAYOUT --- */
+        .messy-container {
+            max-width: 1100px;
+            margin: 20px auto;
+            display: flex;
+            gap: 20px;
+            padding: 10px;
+        }
+
+        .sidebar {
+            width: 200px;
+            background: #fff;
+            border: 2px solid black;
+            padding: 10px;
+            transform: rotate(-1deg);
+        }
+
+        .content {
+            flex: 1;
+            background: white;
+            border: 2px solid black;
+            padding: 20px;
+            box-shadow: 15px 15px 0px rgba(0,0,0,0.1);
+        }
+
+        /* --- UI ELEMENTS --- */
+        .download-box {
+            background: #ffff99;
+            border: 5px dotted #ff0000;
+            padding: 25px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .big-btn {
+            background: linear-gradient(to bottom, #4cd137, #44bd32);
+            color: white;
+            font-size: 35px;
+            padding: 15px 40px;
+            border: 4px solid #000;
+            cursor: pointer;
+            font-family: "Impact";
+            box-shadow: 8px 8px 0px #000;
+        }
+        .big-btn:active { transform: translate(4px, 4px); box-shadow: 2px 2px 0px #000; }
+
+        .section-header {
+            background: #0984e3;
+            color: white;
+            padding: 10px;
+            margin: 20px 0 10px 0;
+            font-family: "Impact";
+            font-size: 24px;
+            transform: skewX(-10deg);
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 15px;
+        }
+
+        .game-box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            background: #f9f9f9;
+            text-align: center;
+        }
+        .game-box:hover { background: #ffeaa7; }
+
+        .sticker {
+            background: #e17055;
+            color: white;
+            padding: 5px;
+            font-size: 10px;
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            transform: rotate(15deg);
+            border: 1px solid black;
         }
 
         .footer {
-            background: #000;
-            color: #aaa;
-            padding: 50px;
-            text-align: center;
             margin-top: 50px;
+            background: #000;
+            color: #777;
+            padding: 30px;
+            text-align: center;
+            font-size: 10px;
         }
-
-        /* Decorative stars */
-        .star { position: absolute; color: yellow; font-size: 24px; pointer-events: none; }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <div class="logo-box"></div>
-        <div class="motto-flash">★ FUN FOR ALL ★</div>
-        <div style="background: white; padding: 10px; border: 2px solid black;">
-            <b>Users Online:</b> 6,432<br>
-            <b>Your ID:</b> Guest_9921
+    <div class="header-main">
+        <div class="brick-logo">P</div>
+        <div class="site-title">PLAYNO</div>
+        <div class="motto-container">
+            <div class="spinning-star">FUN<br>FOR<br>ALL</div>
         </div>
-    </div>
-
-    <div class="marquee-zone">
-        <marquee scrollamount="15">!!! NEW UPDATE !!! BUILD YOUR OWN WORLD !!! DOWNLOAD NOW !!! CLICK THE BIG BUTTON !!! NO VIRUS !!! 100% FREE !!!</marquee>
     </div>
 
     <div class="nav">
-        <a href="#" class="nav-link">HOME</a>
-        <a href="#" class="nav-link">GAMES</a>
-        <a href="#" class="nav-link">CATALOG</a>
-        <a href="#" class="nav-link">BUILDERS</a>
-        <a href="#" class="nav-link">FORUMS</a>
+        <a href="#">HOME</a>
+        <a href="#">GAMES</a>
+        <a href="#">shopper</a>
+        <a href="#">FORUMS</a>
+        <a href="#">HELP</a>
     </div>
 
-    <div class="container">
+    <marquee style="background: red; color: white; font-weight: bold; padding: 5px;">
+        *** WELCOME TO PLAYNO *** BUILD YOUR OWN GAMES *** JOIN THE COMMUNITY *** NEW ITEMS IN THE SHOPPER *** FUN FOR ALL ***
+    </marquee>
+
+    <div class="messy-container">
         <div class="sidebar">
-            <div class="ad-space">
-                <h2>GET FREE<br>MEMBERSHIP<br>NOW!!</h2>
-            </div>
-            <div style="border: 2px inset white; padding: 5px; background: #999;">
-                <h3>Top Players</h3>
-                1. Builderman<br>
-                2. Telamon<br>
-                3. You?
+            <div style="border-bottom: 2px solid black; margin-bottom: 10px; font-weight: bold;">User Panel</div>
+            <center>
+                <img src="https://via.placeholder.com/100x120?text=PLAYER" style="border: 1px solid #000; margin-bottom: 5px;">
+                <br><b>Guest_882</b>
+            </center>
+            <hr><br>
+            <div style="font-size: 12px;">
+                <b>Friends:</b> 0<br>
+                <b>Messages:</b> 1<br>
+                <b>Points:</b> 10
             </div>
             <br>
-            <center><img src="https://via.placeholder.com/150x200?text=COOL+AVATAR" style="border: 4px solid blue;"></center>
+            <div style="background: #eee; padding: 5px; font-size: 11px; border: 1px dashed black;">
+                "I love building bricks!" - Admin
+            </div>
         </div>
 
-        <div class="main-content">
-            <div class="download-zone">
-                <h1 class="blink">>>> SYSTEM ALERT: ENGINE READY <<<</h1>
-                <p>Click below to install the Playno Game Engine 2008 Edition!</p>
-                <br>
-                <button class="big-red-button" onclick="downloadGame()">
-                    INSTALL PLAYNO.EXE (PY)
-                </button>
-                
-                <div style="margin-top: 20px; font-family: monospace; background: #000; color: #0f0; padding: 10px;">
-                    C:\> pip install panda3d<br>
-                    C:\> python game.py world.plno
+        <div class="content">
+            <div class="download-box">
+                <div style="position: relative; display: inline-block;">
+                    <div class="sticker">NEW VERSION!</div>
+                    <h2 style="font-size: 30px; margin-bottom: 10px;">PLAYNO ENGINE</h2>
                 </div>
+                <p>Create anything you can imagine!</p>
+                <br>
+                <button class="big-btn" onclick="downloadGame()">DOWNLOAD NOW</button>
+                <br><br>
+                <p style="font-size: 12px; color: #666;">Works on Windows & Mac (Requires Python)</p>
             </div>
 
-            <h2 style="color: yellow; text-shadow: 2px 2px black; font-size: 30px;">HOT GAMES</h2>
-            <div class="games-mess" id="gamesGrid">
+            <div class="section-header">POPULAR PLACES</div>
+            
+            <div class="game-grid" id="gamesList">
                 </div>
+
+            <div class="section-header">LATEST FROM shopper</div>
+            <div style="display: flex; gap: 10px; overflow-x: auto; padding: 10px;">
+                <div style="border: 1px solid #000; min-width: 80px; height: 80px; background: #eee; text-align: center; padding-top: 10px;">Red Hat</div>
+                <div style="border: 1px solid #000; min-width: 80px; height: 80px; background: #eee; text-align: center; padding-top: 10px;">Blue Shirt</div>
+                <div style="border: 1px solid #000; min-width: 80px; height: 80px; background: #eee; text-align: center; padding-top: 10px;">Epic Face</div>
+            </div>
         </div>
     </div>
 
     <div class="footer">
-        <p>PLAYNO is a registered trademark of... nobody! It's for everyone!</p>
-        <p>Copyright 2008 - 2025 | Built with passion</p>
-        <div style="font-size: 40px;">🧱 🕹️ 🏗️</div>
+        PLAYNO (c) 2008-2025<br>
+        All rights reserved to the community!<br>
+        <a href="#" style="color: #444;">Privacy</a> | <a href="#" style="color: #444;">Terms</a>
     </div>
 
     <script>
         const games = [
-            { name: "Super Obby", creator: "NoobMaster", likes: 500, emoji: "🌋" },
-            { name: "Destroy the Wall", creator: "Admin", likes: 1200, emoji: "💣" },
-            { name: "City Life RP", creator: "Roleplayer", likes: 45, emoji: "🏠" },
-            { name: "Base Wars", creator: "Soldier", likes: 999, emoji: "🔫" }
+            { name: "Brick Battle", creator: "Admin", icon: "🧱" },
+            { name: "Sword Fight", creator: "Knight", icon: "⚔️" },
+            { name: "The Obby", creator: "ParkourKing", icon: "🏃" },
+            { name: "Baseplate", creator: "Noob", icon: "🏙️" },
+            { name: "Zombie Survival", creator: "Survivor", icon: "🧟" }
         ];
 
-        function loadGames() {
-            const grid = document.getElementById('gamesGrid');
-            games.forEach((game, index) => {
-                const item = document.createElement('div');
-                item.className = 'game-item';
-                item.innerHTML = `
-                    <div class="thumb">${game.emoji}</div>
-                    <b>${game.name}</b><br>
-                    <small>By: ${game.creator}</small><br>
-                    <span style="color: green;">Rating: ${game.likes}%</span><br>
-                    <button onclick="alert('Downloading ${game.name}...')">PLAY</button>
+        function load() {
+            const list = document.getElementById('gamesList');
+            games.forEach(g => {
+                const div = document.createElement('div');
+                div.className = 'game-box';
+                div.innerHTML = `
+                    <div style="font-size: 40px; background: white; margin-bottom: 5px;">${g.icon}</div>
+                    <div style="font-weight: bold; font-size: 12px;">${g.name}</div>
+                    <div style="font-size: 10px; color: #666;">By ${g.creator}</div>
+                    <button style="margin-top: 5px; cursor: pointer;">PLAY</button>
                 `;
-                grid.appendChild(item);
+                list.appendChild(div);
             });
         }
 
         function downloadGame() {
-            const code = `# Messy Playno Script\nprint("PLAYNO STARTING...")`; // Simplified for brevity
+            const code = `# Playno Script\nprint("Loading Engine...")`;
             const blob = new Blob([code], { type: 'text/plain' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'game.py';
+            a.download = 'playno.py';
             a.click();
-            alert('GAME DOWNLOADED!! RUN IT NOW!!');
+            alert("DOWNLOADING ENGINE...");
         }
 
-        // Add random stars for extra messiness
-        for(let i=0; i<30; i++) {
-            let s = document.createElement('div');
-            s.className = 'star';
-            s.innerHTML = '★';
-            s.style.top = Math.random() * 2000 + 'px';
-            s.style.left = Math.random() * window.innerWidth + 'px';
-            document.body.appendChild(s);
-        }
-
-        loadGames();
+        load();
     </script>
 </body>
 </html>
