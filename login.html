@@ -5,13 +5,11 @@
     <title>PLAYNO - LOGIN</title>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     <style>
         body { background-color: #1c5ba3; font-family: Verdana; display: flex; justify-content: center; padding-top: 100px; }
         .box { background: white; border: 2px solid black; padding: 30px; width: 300px; text-align: center; box-shadow: 10px 10px 0px rgba(0,0,0,0.5); }
-        input, select { width: 90%; padding: 8px; margin-bottom: 10px; font-family: Verdana; font-size: 11px; }
+        input { width: 90%; padding: 8px; margin-bottom: 10px; font-family: Verdana; font-size: 11px; }
         .btn { width: 100%; padding: 10px; background: #3498db; color: white; border: 1px solid black; font-weight: bold; cursor: pointer; }
-        label { display: block; text-align: left; font-size: 10px; font-weight: bold; margin-bottom: 2px; margin-left: 5%; }
     </style>
 </head>
 <body>
@@ -21,26 +19,15 @@
         <input type="text" id="u" placeholder="Username">
         <input type="password" id="p" placeholder="Password">
         
-        <label>Birthday:</label>
-        <input type="date" id="bday">
-        
-        <label>Gender:</label>
-        <select id="gender">
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-        </select>
-
         <button class="btn" onclick="doLogin()">LOG IN</button>
-        <p><a href="signup.html">Need an account?</a> | <a href="index.html">Home</a></p>
+        <p style="font-size: 11px;"><a href="signup.html">Need an account?</a> | <a href="index.html">Home</a></p>
     </div>
     <script>
-        // Use environment config if available, otherwise fallback to placeholder
         const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {
-            apiKey: "YOUR_API_KEY", 
-            projectId: "your-project"
+            apiKey: "", 
+            projectId: "playno-auth"
         };
 
-        // Safety check for initialization
         if (!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
         }
@@ -48,8 +35,6 @@
         async function doLogin() {
             const u = document.getElementById('u').value.trim();
             const p = document.getElementById('p').value;
-            const bday = document.getElementById('bday').value;
-            const gender = document.getElementById('gender').value;
 
             if (!u || !p) {
                 alert("Please enter username and password!");
@@ -57,22 +42,12 @@
             }
 
             try {
-                // Initialize auth inside the function to ensure Firebase is ready
                 const auth = firebase.auth();
-                const db = firebase.database();
-                
-                const cred = await auth.signInWithEmailAndPassword(u + "@playno.local", p);
-                
-                // Save/Update profile details to database
-                await db.ref('users/' + cred.user.uid + '/profile').update({
-                    lastLogin: Date.now(),
-                    birthday: bday,
-                    gender: gender
-                });
-
+                // We use the same virtual domain as signup to keep it username-only for the user
+                await auth.signInWithEmailAndPassword(u + "@playno.local", p);
                 window.location.href = "index.html";
             } catch(e) { 
-                alert("Error: " + e.message); 
+                alert("Login Error: " + e.message); 
             }
         }
     </script>
