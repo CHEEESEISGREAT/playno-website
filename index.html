@@ -109,16 +109,6 @@
             text-align: center;
         }
 
-        .featured-box {
-            background: #ffecb3;
-            border: 2px dashed #ffa000;
-            padding: 15px 5px;
-            font-family: 'Comic Sans MS';
-            margin-bottom: 10px;
-            text-align: center;
-            font-weight: bold;
-        }
-
         /* --- MAIN CONTENT --- */
         .main-content {
             flex-grow: 1;
@@ -147,7 +137,6 @@
             text-shadow: 1px 1px 0px #2f6627;
             border-radius: 5px;
         }
-        .download-btn:hover { background: linear-gradient(to bottom, #5cbf2a 5%, #44c767 100%); }
 
         .game-entry {
             border: 1px solid #ccc;
@@ -159,17 +148,7 @@
             gap: 10px;
         }
 
-        .game-thumb {
-            width: 80px;
-            height: 60px;
-            background: #ccc;
-            border: 1px solid black;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 30px;
-        }
-
+        .game-thumb { width: 80px; height: 60px; background: #ccc; border: 1px solid black; display: flex; align-items: center; justify-content: center; font-size: 30px; }
         .game-info h3 { margin: 0; color: #003366; font-size: 14px; }
         .game-stats { font-size: 9px; color: #666; }
 
@@ -183,6 +162,24 @@
             cursor: pointer;
         }
 
+        /* --- INSTRUCTION OVERLAY --- */
+        #instruction-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal {
+            background: #fff;
+            border: 4px solid #003366;
+            padding: 20px;
+            max-width: 400px;
+            text-align: left;
+        }
+
         .footer {
             border-top: 1px solid #ccc;
             text-align: center;
@@ -194,6 +191,20 @@
     </style>
 </head>
 <body>
+
+    <div id="instruction-overlay">
+        <div class="modal">
+            <h2 style="color:red; font-family:'Comic Sans MS'; margin-top:0;">HOW TO PLAY:</h2>
+            <ol style="font-size: 12px; line-height: 1.5;">
+                <li>Open your <b>Hard Drive (C:)</b>.</li>
+                <li>Create a folder named <b>Playno-Game</b>.</li>
+                <li>Inside that, create a folder named <b>games</b>.</li>
+                <li>Move the <b>.plno</b> file you just downloaded into that <b>games</b> folder.</li>
+                <li>Run <code>game.py</code> to start!</li>
+            </ol>
+            <button onclick="document.getElementById('instruction-overlay').style.display='none'" style="width:100%; padding:10px; font-weight:bold; cursor:pointer;">OK, I GOT IT!</button>
+        </div>
+    </div>
 
     <div class="main-container">
         <div class="header">
@@ -226,23 +237,9 @@
                         <br><a href="#" style="font-size: 9px;">Forgot pass?</a>
                     </div>
                 </div>
-
-                <div class="featured-box">
-                    NEW FEATURE:<br>
-                    Physics Engine Updated!
-                </div>
-
-                <div class="sidebar-box">
-                    <div class="sidebar-header">Stats</div>
-                    <div class="sidebar-content">
-                        Users Online: 14,302<br>
-                        Total Games: 3
-                    </div>
-                </div>
             </div>
 
             <div class="main-content">
-                
                 <div class="big-alert-box" id="download">
                     <h1 style="font-family: 'Comic Sans MS'; color: red; margin: 0;">PLAYNO GAME ENGINE</h1>
                     <p>Build your own world today!!! Its free!!</p>
@@ -251,19 +248,10 @@
                         INSTALL PLAYNO
                     </button>
                     <p id="status-msg" style="color: red; font-weight: bold;"></p>
-                    <div style="font-size: 10px; margin-top: 10px; border: 1px dashed gray; padding: 5px; background: white; text-align: left;">
-                        <b>INSTRUCTIONS:</b><br>
-                        1. Click button.<br>
-                        2. Get Python.<br>
-                        3. Type <code>pip install panda3d</code> in cmd.<br>
-                        4. Download a game below.
-                    </div>
                 </div>
 
                 <h2 id="games" style="border-bottom: 2px solid blue; color: blue; font-family: 'Comic Sans MS';">Cool Games</h2>
-                
                 <div id="games-list"></div>
-
             </div>
         </div>
 
@@ -279,62 +267,14 @@
         const REPO_FILE_URL = 'https://raw.githubusercontent.com/CHEEESEISGREAT/playno-website/main/game.py';
 
         const games = [
-            {
-                name: "City",
-                creator: "Admin",
-                likes: 89,
-                emoji: "🏙️",
-                data: {
-                    name: "City",
-                    creator: "Playno",
-                    likes: 89,
-                    parts: [
-                        {pos: [0, 0, 0], size: [100, 100, 1], color: [0.3, 0.3, 0.3, 1]},
-                        {pos: [10, 10, 5], size: [8, 8, 10], color: [0.8, 0.3, 0.3, 1]},
-                        {pos: [-15, 5, 6], size: [10, 10, 12], color: [0.3, 0.5, 0.8, 1]},
-                        {pos: [5, -20, 4], size: [6, 6, 8], color: [0.7, 0.7, 0.3, 1]},
-                        {pos: [-10, -15, 3], size: [5, 5, 6], color: [0.6, 0.3, 0.7, 1]}
-                    ]
-                }
-            },
-            {
-                name: "Parkour Obby",
-                creator: "xxSniperxx",
-                likes: 156,
-                emoji: "🏃",
-                data: {
-                    name: "Parkour",
-                    creator: "SpeedRunner",
-                    likes: 156,
-                    parts: [
-                        {pos: [0, 0, 0], size: [10, 10, 1], color: [0.3, 0.8, 0.3, 1]},
-                        {pos: [15, 0, 2], size: [8, 8, 1], color: [0.8, 0.3, 0.3, 1]},
-                        {pos: [30, 0, 4], size: [8, 8, 1], color: [0.3, 0.3, 0.8, 1]},
-                        {pos: [45, 0, 6], size: [8, 8, 1], color: [0.8, 0.8, 0.3, 1]},
-                        {pos: [60, 0, 8], size: [10, 10, 1], color: [0.8, 0.3, 0.8, 1]}
-                    ]
-                }
-            },
-            {
-                name: "Free Build",
-                creator: "Noob123",
-                likes: 234,
-                emoji: "🏗️",
-                data: {
-                    name: "Sandbox",
-                    creator: "Builder101",
-                    likes: 234,
-                    parts: [
-                        {pos: [0, 0, 0], size: [100, 100, 1], color: [0.4, 0.4, 0.4, 1]}
-                    ]
-                }
-            }
+            { name: "City", creator: "Admin", likes: 89, emoji: "🏙️", data: { name: "City", parts: [] } },
+            { name: "Parkour Obby", creator: "xxSniperxx", likes: 156, emoji: "🏃", data: { name: "Parkour", parts: [] } },
+            { name: "Free Build", creator: "Noob123", likes: 234, emoji: "🏗️", data: { name: "Sandbox", parts: [] } }
         ];
         
         function loadGames() {
             const list = document.getElementById('games-list');
             list.innerHTML = '';
-            
             games.forEach((game, index) => {
                 const entry = document.createElement('div');
                 entry.className = 'game-entry';
@@ -342,7 +282,7 @@
                     <div class="game-thumb">${game.emoji}</div>
                     <div class="game-info">
                         <h3>${game.name}</h3>
-                        <div class="game-stats">By: ${game.creator} | Visits: ${game.likes * 12}</div>
+                        <div class="game-stats">By: ${game.creator}</div>
                     </div>
                     <button class="dl-small-btn" onclick="downloadLevelFile(${index})">
                         Download Place
@@ -354,30 +294,19 @@
         
         async function fetchAndDownloadGame() {
             const status = document.getElementById('status-msg');
-            status.innerHTML = "Working...";
-
+            status.innerHTML = "Downloading engine...";
             try {
                 const response = await fetch(REPO_FILE_URL);
-                if (!response.ok) throw new Error('Bad network');
                 const code = await response.text();
-                
                 const blob = new Blob([code], { type: 'text/x-python' });
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
-                a.style.display = 'none';
                 a.href = url;
                 a.download = 'game.py';
-                document.body.appendChild(a);
                 a.click();
-                
-                window.URL.revokeObjectURL(url);
-                document.body.removeChild(a);
-                status.innerHTML = "Done! Open the file now.";
-
+                status.innerHTML = "Engine Downloaded!";
             } catch (error) {
-                console.error(error);
-                status.innerHTML = "Error! Opening in new tab...";
-                setTimeout(() => window.open(REPO_FILE_URL, '_blank'), 1000);
+                status.innerHTML = "Download Failed!";
             }
         }
         
@@ -391,6 +320,9 @@
             a.download = game.name + '.plno';
             a.click();
             URL.revokeObjectURL(url);
+            
+            // Show instructions
+            document.getElementById('instruction-overlay').style.display = 'flex';
         }
         
         loadGames();
