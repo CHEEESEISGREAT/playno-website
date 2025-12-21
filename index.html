@@ -115,7 +115,7 @@
             margin: auto;
         }
 
-        /* --- SIDEBAR CLUTTER --- */
+        /* --- SIDEBAR --- */
         .sidebar {
             width: 250px;
             background: #ddd;
@@ -212,9 +212,8 @@
     <div class="header">
         <div class="logo-box"></div>
         <div class="motto-flash">★ FUN FOR ALL ★</div>
-        <div style="text-align:center;">
+        <div>
             <a href="#" class="signup-header-btn">SIGN UP TODAY!</a>
-            <small>Join 6,432 Players Online</small>
         </div>
     </div>
 
@@ -235,27 +234,22 @@
                 <h2>GET OFFICIAL<br>PLAYNO GEAR<br>NOW!!</h2>
             </div>
             <div style="border: 2px inset white; padding: 10px; background: #999;">
-                <h3 style="text-decoration: underline;">Top Builders</h3>
-                1. Admin<br>
-                2. MasterBrick<br>
-                3. Knight01
+                <h3 style="text-decoration: underline;">Community</h3>
+                No threads yet.
             </div>
-            <br>
-            <center><div style="width:150px; height:200px; background:white; border:4px solid blue; display:flex; align-items:center; justify-content:center; font-size:50px;">🧍</div></center>
         </div>
 
         <div class="main-content">
             <div class="download-zone">
                 <h1 class="blink">>>> SYSTEM ALERT: ENGINE READY <<<</h1>
-                <p>Click below to install the Playno Studio Engine 2008 Edition!</p>
+                <p>Click below to install the Playno Engine!</p>
                 <br>
                 <button class="big-red-button" onclick="downloadEngine()">
-                    INSTALL STUDIO.PY
+                    INSTALL GAME.PY
                 </button>
                 
                 <div style="margin-top: 20px; font-family: monospace; background: #000; color: #0f0; padding: 10px;">
-                    C:\> pip install panda3d<br>
-                    C:\> python playno_studio.py
+                    C:\> python game.py
                 </div>
             </div>
 
@@ -276,7 +270,7 @@
             { name: "Chaos Canyon", creator: "Admin", likes: "98%", emoji: "⛰️" },
             { name: "Crossroads", creator: "Admin", likes: "95%", emoji: "🚦" },
             { name: "Glass Houses", creator: "Admin", likes: "92%", emoji: "💎" },
-            { name: "Brick Battle", creator: "Knight01", likes: "100%", emoji: "💣" }
+            { name: "Brick Battle", creator: "Builder", likes: "100%", emoji: "💣" }
         ];
 
         function loadGames() {
@@ -296,12 +290,12 @@
         }
 
         function downloadEngine() {
-            const code = `# PLAYNO ENGINE LOAD\nprint("LOADING STUDIO...")`;
+            const code = `# PLAYNO ENGINE LOAD\nprint("LOADING GAME...")`;
             const blob = new Blob([code], { type: 'text/plain' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'playno_studio.py';
+            a.download = 'game.py';
             a.click();
         }
 
