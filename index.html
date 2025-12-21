@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PLAYNO - Build and Play Games!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Comic Sans MS', 'Arial', sans-serif;
+            background: #6ba3d4;
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.05) 35px, rgba(255,255,255,.05) 70px);
+        }
+        
+        .header {
+            background: linear-gradient(to bottom, #ffffff 0%, #e0e0e0 100%);
+            border-bottom: 4px solid #333;
+            padding: 15px 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border: 3px solid #333;
+            border-radius: 8px;
+            padding: 5px;
+            box-shadow: 3px 3px 0 rgba(0,0,0,0.2);
+        }
+        
+        .site-title {
+            font-size: 2.5rem;
+            color: #e74c3c;
+            text-shadow: 
+                2px 2px 0 #333,
+                4px 4px 0 rgba(0,0,0,0.2);
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        
+        .nav-buttons {
+            margin-left: auto;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .nav-btn {
+            background: linear-gradient(to bottom, #4CAF50 0%, #45a049 100%);
+            color: white;
+            border: 2px solid #2d6b2f;
+            padding: 8px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 4px;
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: all 0.1s;
+        }
+        
+        .nav-btn:hover {
+            transform: translate(1px, 1px);
+            box-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+        }
+        
+        .nav-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: none;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        
+        .download-box {
+            background: linear-gradient(to bottom, #ffeb3b 0%, #fdd835 100%);
+            border: 4px solid #f57f17;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
+            transform: rotate(-1deg);
+        }
+        
+        .download-box h2 {
+            color: #d84315;
+            font-size: 2rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 0 rgba(255,255,255,0.5);
+        }
+        
+        .download-big-btn {
+            background: linear-gradient(to bottom, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            border: 4px solid #922b21;
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            border-radius: 8px;
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.3);
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.1s;
+        }
+        
+        .download-big-btn:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+        }
+        
+        .instructions {
+            background: white;
+            border: 3px solid #333;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 4px;
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+        }
+        
+        .instructions h3 {
+            color: #e74c3c;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .instructions ol {
+            margin-left: 25px;
+            line-height: 1.8;
+        }
+        
+        .instructions code {
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #c0392b;
+        }
+        
+        .games-section {
+            background: linear-gradient(to bottom, #ffffff 0%, #f5f5f5 100%);
+            border: 4px solid #333;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
+            transform: rotate(0.5deg);
+        }
+        
+        .section-title {
+            color: #3498db;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+            border-bottom: 4px solid #2980b9;
+            padding-bottom: 10px;
+        }
+        
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .game-card {
+            background: white;
+            border: 3px solid #333;
+            border-radius: 6px;
+            padding: 15px;
+            box-shadow: 3px 3px 0 rgba(0,0,0,0.2);
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        
+        .game-card:hover {
+            transform: translate(-2px, -2px) rotate(-1deg);
+            box-shadow: 5px 5px 0 rgba(0,0,0,0.3);
+        }
+        
+        .game-thumbnail {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: 3px solid #333;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            box-shadow: inset 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .game-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .game-info {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .game-download-btn {
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(to bottom, #3498db 0%, #2980b9 100%);
+            color: white;
+            border: 3px solid #1a5490;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+            transition: all 0.1s;
+        }
+        
+        .game-download-btn:hover {
+            transform: translate(1px, 1px);
+            box-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+        }
+        
+        .game-download-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: none;
+        }
+        
+        .footer {
+            background: linear-gradient(to bottom, #2c3e50 0%, #1a252f 100%);
+            border-top: 4px solid #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            box-shadow: 0 -4px 8px rgba(0,0,0,0.3);
+        }
+        
+        .footer a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .blink {
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50%, 100% { opacity: 1; }
+            25%, 75% { opacity: 0.5; }
+        }
+        
+        .marquee {
+            background: #e74c3c;
+            color: white;
+            padding: 10px;
+            border: 3px solid #c0392b;
+            margin-bottom: 20px;
+            overflow: hidden;
+            white-space: nowrap;
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+        }
+        
+        .marquee-content {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 20s linear infinite;
+        }
+        
+        @keyframes marquee {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-100%, 0); }
+        }
+        
+        .star {
+            color: #f39c12;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div class="logo-container">
+                <img src="https://raw.githubusercontent.com/YOUR-USERNAME/playno/main/assets/logo.png" 
+                     alt="PLAYNO Logo" 
+                     class="logo"
+                     onerror="this.style.display='none'">
+                <div class="site-title">PLAYNO</div>
+            </div>
+            <div class="nav-buttons">
+                <a href="#games" class="nav-btn">GAMES</a>
+                <a href="#download" class="nav-btn">DOWNLOAD</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="marquee">
+        <div class="marquee-content">
+            ⭐ WELCOME TO PLAYNO! ⭐ BUILD YOUR OWN GAMES! ⭐ FREE TO PLAY! ⭐ DOWNLOAD NOW! ⭐ FUN FOR ALL! ⭐
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="download-box" id="download">
+            <h2>🎮 GET PLAYNO NOW! <span class="blink">★ FREE ★</span></h2>
+            <p style="font-size: 1.1rem; margin-bottom: 15px;">
+                <strong>Download the Playno Game Engine and start playing TODAY!</strong>
+            </p>
+            <button class="download-big-btn" onclick="downloadGame()">
+                ⬇️ DOWNLOAD GAME.PY
+            </button>
+            
+            <div class="instructions">
+                <h3>📋 How To Get Started:</h3>
+                <ol>
+                    <li>Click the big red button to download <code>game.py</code></li>
+                    <li>Install Python 3 from <a href="https://python.org" target="_blank">python.org</a></li>
+                    <li>Install Panda3D: Open command prompt and type <code>pip install panda3d</code></li>
+                    <li>Download a game file (.plno) from the games section below!</li>
+                    <li>Run the game: <code>python game.py YourGame.plno</code></li>
+                    <li><strong>HAVE FUN!</strong> 🎉</li>
+                </ol>
+            </div>
+        </div>
+        
+        <div class="games-section" id="games">
+            <h2 class="section-title">🎯 AVAILABLE GAMES!</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 10px;">
+                <strong>Click on any game to download the .plno file!</strong>
+            </p>
+            
+            <div class="games-grid" id="gamesGrid">
+                <!-- Games loaded by JavaScript -->
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p style="font-size: 1.2rem; margin-bottom: 10px;">
+            <strong>PLAYNO © 2024 - fun for all</strong>
+        </p>
+        <p>Made with ❤️ for game creators everywhere!</p>
+        <p style="margin-top: 10px;">
+            <a href="https://github.com/YOUR-USERNAME/playno" target="_blank">View on GitHub</a> | 
+            <a href="#" onclick="alert('Discord coming soon!'); return false;">Join Discord</a>
+        </p>
+    </div>
+
+    <script>
+        // Game database with full game data embedded
+        const games = [
+            {
+                name: "City",
+                creator: "Playno",
+                likes: 89,
+                emoji: "🏙️",
+                description: "Explore a city with buildings!",
+                data: {
+                    name: "City",
+                    creator: "Playno",
+                    likes: 89,
+                    parts: [
+                        {pos: [0, 0, 0], size: [100, 100, 1], color: [0.3, 0.3, 0.3, 1]},
+                        {pos: [10, 10, 5], size: [8, 8, 10], color: [0.8, 0.3, 0.3, 1]},
+                        {pos: [-15, 5, 6], size: [10, 10, 12], color: [0.3, 0.5, 0.8, 1]},
+                        {pos: [5, -20, 4], size: [6, 6, 8], color: [0.7, 0.7, 0.3, 1]},
+                        {pos: [-10, -15, 3], size: [5, 5, 6], color: [0.6, 0.3, 0.7, 1]}
+                    ]
+                }
+            },
+            {
+                name: "Parkour",
+                creator: "Playno",
+                likes: 156,
+                emoji: "🏃",
+                description: "Jump across platforms!",
+                data: {
+                    name: "Parkour",
+                    creator: "Playno",
+                    likes: 156,
+                    parts: [
+                        {pos: [0, 0, 0], size: [10, 10, 1], color: [0.3, 0.8, 0.3, 1]},
+                        {pos: [15, 0, 2], size: [8, 8, 1], color: [0.8, 0.3, 0.3, 1]},
+                        {pos: [30, 0, 4], size: [8, 8, 1], color: [0.3, 0.3, 0.8, 1]},
+                        {pos: [45, 0, 6], size: [8, 8, 1], color: [0.8, 0.8, 0.3, 1]},
+                        {pos: [60, 0, 8], size: [10, 10, 1], color: [0.8, 0.3, 0.8, 1]}
+                    ]
+                }
+            },
+            {
+                name: "Sandbox",
+                creator: "Playno",
+                likes: 234,
+                emoji: "🏗️",
+                description: "Empty world - build anything!",
+                data: {
+                    name: "Sandbox",
+                    creator: "Playno",
+                    likes: 234,
+                    parts: [
+                        {pos: [0, 0, 0], size: [100, 100, 1], color: [0.4, 0.4, 0.4, 1]}
+                    ]
+                }
+            }
+        ];
+        
+        // Load games into grid
+        function loadGames() {
+            const grid = document.getElementById('gamesGrid');
+            grid.innerHTML = '';
+            
+            games.forEach((game, index) => {
+                const card = document.createElement('div');
+                card.className = 'game-card';
+                card.innerHTML = \`
+                    <div class="game-thumbnail">\${game.emoji}</div>
+                    <div class="game-title">\${game.name}</div>
+                    <div class="game-info">
+                        <span>by <strong>\${game.creator}</strong></span>
+                        <span class="star">❤️ \${game.likes}</span>
+                    </div>
+                    <button class="game-download-btn" onclick="downloadGameFile(\${index})">
+                        ⬇️ DOWNLOAD \${game.name.toUpperCase()}
+                    </button>
+                \`;
+                grid.appendChild(card);
+            });
+        }
+        
+        // Download the Python game engine
+        function downloadGame() {
+            const code = \`# game.py - Playno Game Engine
+# Run with: python game.py YourGame.plno
+from direct.showbase.ShowBase import ShowBase
+from panda3d.core import *
+import math, os, json, sys
+
+GRAVITY = -35.0
+JUMP_FORCE = 15.0
+WALK_SPEED = 10.0
+ROBLOX_SCALE = 0.5
+PLAYER_RADIUS = 1.0
+
+COLOR_TORSO = (0, 0, 1, 1)
+COLOR_HEAD = (1, 1, 1, 1)
+COLOR_LEGS = (1, 1, 0, 1)
+COLOR_ARMS = (0, 1, 0, 1)
+
+class PlaynoGame(ShowBase):
+    def __init__(self, game_file=None):
+        super().__init__()
+        self.disableMouse()
+        self.setBackgroundColor(0.5, 0.5, 0.5)
+        self.velocity_z = 0
+        self.is_grounded = False
+        self.walk_cycle = 0
+        self.floor_height = 0.5
+        self.key_map = {"w": 0, "s": 0, "a": 0, "d": 0, "space": 0}
+        self.cam_rotate = {"left": 0, "right": 0}
+        self.cam_distance = 20
+        self.cam_h = 0
+        self.cam_p = -20
+        self.mouse_drag = False
+        self.mouse_last = None
+        
+        self.setup_controls()
+        self.setup_lights()
+        
+        if game_file and os.path.exists(game_file):
+            self.load_game(game_file)
+        else:
+            self.create_default_world()
+        
+        self.create_character()
+        self.taskMgr.add(self.update_task, "update")
+        self.update_camera(0.01)
+    
+    def load_game(self, game_file):
+        try:
+            with open(game_file, 'r') as f:
+                game_data = json.load(f)
+            print(f"Loading: {game_data['name']}")
+            for part in game_data['parts']:
+                self.create_box(self.render, tuple(part['pos']), tuple(part['size']), tuple(part['color']))
+        except Exception as e:
+            print(f"Error: {e}")
+            self.create_default_world()
+    
+    def create_default_world(self):
+        self.create_box(self.render, (0, 0, 0), (100, 100, 1), (0.3, 0.3, 0.3, 1))
+        self.create_box(self.render, (5, 5, 1), (2, 2, 2), (1, 0, 0, 1))
+    
+    def create_box(self, parent, pos, size, color):
+        anchor = NodePath("part")
+        anchor.reparentTo(parent)
+        anchor.setPos(pos)
+        model = self.loader.loadModel("models/box")
+        model.reparentTo(anchor)
+        model.setScale(size)
+        model.setPos(-size[0]/2, -size[1]/2, -size[2]/2)
+        model.clearTexture()
+        model.setColor(*color)
+        mat = Material()
+        mat.setDiffuse(color)
+        mat.setAmbient((color[0]*0.4, color[1]*0.4, color[2]*0.4, 1))
+        model.setMaterial(mat)
+        return anchor
+    
+    def setup_lights(self):
+        self.render.clearLight()
+        alight = AmbientLight('alight')
+        alight.setColor((0.6, 0.6, 0.6, 1))
+        self.render.setLight(self.render.attachNewNode(alight))
+        dlight = DirectionalLight('dlight')
+        dlight.setColor((0.7, 0.7, 0.7, 1))
+        dlnp = self.render.attachNewNode(dlight)
+        dlnp.setHpr(45, -60, 0)
+        self.render.setLight(dlnp)
+    
+    def create_character(self):
+        self.player = NodePath("Player")
+        self.player.reparentTo(self.render)
+        self.player.setPos(0, 0, 10)
+        self.player.setScale(ROBLOX_SCALE)
+        self.torso = self.create_box(self.player, (0, 0, 3), (2, 1, 2), COLOR_TORSO)
+        self.head = self.create_box(self.torso, (0, 0, 1.6), (1.2, 1.2, 1.2), COLOR_HEAD)
+        self.l_leg = self.create_box(self.torso, (-0.5, 0, -1), (1, 1, 2), COLOR_LEGS)
+        self.r_leg = self.create_box(self.torso, (0.5, 0, -1), (1, 1, 2), COLOR_LEGS)
+        self.l_arm = self.create_box(self.torso, (-1.5, 0, 1), (1, 1, 2), COLOR_ARMS)
+        self.r_arm = self.create_box(self.torso, (1.5, 0, 1), (1, 1, 2), COLOR_ARMS)
+    
+    def check_collision(self, pos):
+        x, y, z = pos
+        ground = self.floor_height
+        for child in self.render.getChildren():
+            if "part" in child.getName():
+                cp = child.getPos()
+                cs = child.getScale()
+                if abs(x-cp.x) < PLAYER_RADIUS+cs.x/2 and abs(y-cp.y) < PLAYER_RADIUS+cs.y/2:
+                    ground = max(ground, cp.z+cs.z/2)
+        return ground
+    
+    def update_task(self, task):
+        dt = globalClock.getDt()
+        if dt > 0.2: dt = 0.016
+        
+        self.velocity_z += GRAVITY * dt
+        new_z = self.player.getZ() + self.velocity_z * dt
+        ground_z = self.check_collision((self.player.getX(), self.player.getY(), new_z)) + PLAYER_RADIUS
+        
+        if new_z <= ground_z:
+            self.player.setZ(ground_z)
+            self.velocity_z = 0
+            self.is_grounded = True
+        else:
+            self.player.setZ(new_z)
+            self.is_grounded = False
+        
+        moving = False
+        rad = math.radians(self.cam_h)
+        fwd = Vec3(math.sin(rad), -math.cos(rad), 0)
+        right = Vec3(math.cos(rad), math.sin(rad), 0)
+        move = Vec3(0, 0, 0)
+        
+        if self.key_map["w"]: move += fwd
+        if self.key_map["s"]: move -= fwd
+        if self.key_map["d"]: move += right
+        if self.key_map["a"]: move -= right
+        
+        if move.length() > 0:
+            moving = True
+            move.normalize()
+            self.player.setPos(self.player.getPos() + move * WALK_SPEED * dt)
+            self.player.setH(math.degrees(math.atan2(move.x, -move.y)) - 180)
+        
+        if self.key_map["space"] and self.is_grounded:
+            self.velocity_z = JUMP_FORCE
+        
+        if moving and self.is_grounded:
+            self.walk_cycle += dt * 10
+            angle = math.sin(self.walk_cycle) * 45
+            self.l_leg.setP(angle)
+            self.r_leg.setP(-angle)
+            self.l_arm.setP(-angle)
+            self.r_arm.setP(angle)
+        else:
+            self.l_leg.setP(0)
+            self.r_leg.setP(0)
+            self.l_arm.setP(160 if not self.is_grounded else 0)
+            self.r_arm.setP(160 if not self.is_grounded else 0)
+        
+        self.update_camera(dt)
+        return task.cont
+    
+    def setup_controls(self):
+        self.accept("w", self.set_key, ["w", 1])
+        self.accept("w-up", self.set_key, ["w", 0])
+        self.accept("s", self.set_key, ["s", 1])
+        self.accept("s-up", self.set_key, ["s", 0])
+        self.accept("a", self.set_key, ["a", 1])
+        self.accept("a-up", self.set_key, ["a", 0])
+        self.accept("d", self.set_key, ["d", 1])
+        self.accept("d-up", self.set_key, ["d", 0])
+        self.accept("space", self.set_key, ["space", 1])
+        self.accept("space-up", self.set_key, ["space", 0])
+        self.accept("arrow_left", self.set_key, ["left", 1])
+        self.accept("arrow_left-up", self.set_key, ["left", 0])
+        self.accept("arrow_right", self.set_key, ["right", 1])
+        self.accept("arrow_right-up", self.set_key, ["right", 0])
+        self.accept("mouse3", self.start_drag)
+        self.accept("mouse3-up", self.stop_drag)
+        self.accept("escape", sys.exit)
+    
+    def set_key(self, key, value):
+        if key in self.key_map: self.key_map[key] = value
+        elif key in self.cam_rotate: self.cam_rotate[key] = value
+    
+    def start_drag(self):
+        if self.mouseWatcherNode.hasMouse():
+            self.mouse_drag = True
+            self.mouse_last = (self.mouseWatcherNode.getMouseX(), self.mouseWatcherNode.getMouseY())
+    
+    def stop_drag(self):
+        self.mouse_drag = False
+    
+    def update_camera(self, dt):
+        if self.cam_rotate["left"]: self.cam_h += 100 * dt
+        if self.cam_rotate["right"]: self.cam_h -= 100 * dt
+        
+        if self.mouse_drag and self.mouseWatcherNode.hasMouse():
+            x = self.mouseWatcherNode.getMouseX()
+            y = self.mouseWatcherNode.getMouseY()
+            if self.mouse_last:
+                dx = x - self.mouse_last[0]
+                dy = y - self.mouse_last[1]
+                self.cam_h -= dx * 150
+                self.cam_p = max(-80, min(85, self.cam_p + dy * 100))
+            self.mouse_last = (x, y)
+        
+        rad_h = math.radians(self.cam_h)
+        rad_p = math.radians(self.cam_p)
+        target = self.player.getPos()
+        target.z += 3 * ROBLOX_SCALE
+        
+        cam_x = target.x + self.cam_distance * math.sin(rad_h) * math.cos(rad_p)
+        cam_y = target.y - self.cam_distance * math.cos(rad_h) * math.cos(rad_p)
+        cam_z = target.z + self.cam_distance * math.sin(rad_p)
+        
+        self.camera.setPos(cam_x, cam_y, cam_z)
+        self.camera.lookAt(target)
+
+if __name__ == "__main__":
+    game_file = sys.argv[1] if len(sys.argv) > 1 else None
+    game = PlaynoGame(game_file)
+    game.run()\`;
+            
+            const blob = new Blob([code], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'game.py';
+            a.click();
+            
+            alert('✅ game.py downloaded!\\n\\nNext steps:\\n1. Install Python\\n2. Run: pip install panda3d\\n3. Download a game below\\n4. Run: python game.py YourGame.plno');
+        }
+        
+        // Download game .plno file
+        function downloadGameFile(index) {
+            const game = games[index];
+            const json = JSON.stringify(game.data, null, 2);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = game.name + '.plno';
+            a.click();
+            
+            alert(\`✅ \${game.name}.plno downloaded!\\n\\nTo play:\\npython game.py \${game.name}.plno\`);
+        }
+        
+        // Load games on page load
+        loadGames();
+    </script>
+</body>
+</html>
