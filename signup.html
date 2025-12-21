@@ -2,98 +2,66 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>PLAYNO - JOIN</title>
+    <title>PLAYNO - LOGIN</title>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     <style>
-        body { background-color: #1c5ba3; font-family: Verdana; display: flex; justify-content: center; padding-top: 50px; }
-        .box { background: white; border: 2px solid black; padding: 30px; width: 350px; box-shadow: 10px 10px 0px rgba(0,0,0,0.5); }
-        input, select { width: 93%; padding: 8px; margin-bottom: 15px; font-family: Verdana; font-size: 11px; }
-        .btn { width: 100%; padding: 12px; background: #44c767; color: white; font-weight: bold; border: 2px solid #18ab29; cursor: pointer; }
-        label { display: block; text-align: left; font-size: 10px; font-weight: bold; margin-bottom: 2px; }
+        body { background-color: #1c5ba3; font-family: Verdana; display: flex; justify-content: center; padding-top: 100px; }
+        .box { background: white; border: 2px solid black; padding: 30px; width: 300px; text-align: center; box-shadow: 10px 10px 0px rgba(0,0,0,0.5); }
+        input { width: 90%; padding: 8px; margin-bottom: 10px; font-family: Verdana; font-size: 11px; }
+        .btn { width: 100%; padding: 10px; background: #3498db; color: white; border: 1px solid black; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
     <div class="box">
-        <h2 style="font-family: 'Comic Sans MS'; color: red; text-align: center;">SIGN UP</h2>
+        <h2 style="font-family: 'Comic Sans MS'; color: red;">LOGIN</h2>
         
-        <label>Username:</label>
-        <input type="text" id="u" placeholder="Choose Username" maxlength="20">
+        <input type="text" id="u" placeholder="Username">
+        <input type="password" id="p" placeholder="Password">
         
-        <label>Password:</label>
-        <input type="password" id="p" placeholder="Choose Password">
-        
-        <label>Birthday:</label>
-        <input type="date" id="bday">
-        
-        <label>Gender:</label>
-        <select id="gender">
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-        </select>
-
-        <button class="btn" onclick="doSignup()">JOIN PLAYNO!</button>
-        <p style="text-align:center"><a href="login.html">Already have an account?</a> | <a href="index.html">Home</a></p>
+        <button class="btn" onclick="doLogin()">LOG IN</button>
+        <p style="font-size: 11px;"><a href="signup.html">Need an account?</a> | <a href="index.html">Home</a></p>
     </div>
     <script>
-        // Use environment config if available, otherwise initialize with blank to avoid immediate crash
+        // Try to get the API Key from various possible environment locations
+        const envApiKey = (typeof __firebase_config !== 'undefined' && JSON.parse(__firebase_config).apiKey) 
+                          || (typeof process !== 'undefined' && process.env && process.env.FIREBASE_API_KEY)
+                          || ""; // Fallback to empty if not found
+
         const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {
-            apiKey: "", 
-            projectId: "playno-auth"
+            apiKey: envApiKey, 
+            projectId: "playno-auth",
+            authDomain: "playno-auth.firebaseapp.com"
         };
 
         // Initialize Firebase safely
         if (!firebase.apps.length) {
+            if (!firebaseConfig.apiKey) {
+                console.error("FIREBASE ERROR: API Key is missing. Check your GitHub Secrets naming.");
+            }
             firebase.initializeApp(firebaseConfig);
         }
 
-        async function doSignup() {
+        async function doLogin() {
             const u = document.getElementById('u').value.trim();
             const p = document.getElementById('p').value;
-            const bday = document.getElementById('bday').value;
-            const gender = document.getElementById('gender').value;
-            
-            // Username Length Validation
-            if(u.length < 3) return alert("Username must be at least 3 characters!");
-            if(u.length > 20) return alert("Username is too long! (Max 20)");
-            
-            // Special Character Validation (Allows only letters, numbers, and underscores)
-            const validUserRegex = /^[a-zA-Z0-9_]+$/;
-            if(!validUserRegex.test(u)) {
-                return alert("Username can only contain letters, numbers, and underscores (_).");
+
+            if (!u || !p) {
+                alert("Please enter username and password!");
+                return;
             }
 
-            if(p.length < 6) return alert("Password must be at least 6 characters!");
-            if(!bday) return alert("Please select your birthday!");
-            
             try {
-                // Initialize services inside the function
                 const auth = firebase.auth();
-                const db = firebase.database();
-
-                // Create the user using the virtual domain
-                const cred = await auth.createUserWithEmailAndPassword(u + "@playno.local", p);
-                
-                // Save user profile and timestamp to the database
-                await db.ref('users/' + cred.user.uid + '/profile').set({
-                    username: u,
-                    birthday: bday,
-                    gender: gender,
-                    joined: Date.now()
-                });
-
-                await cred.user.updateProfile({ displayName: u });
-                
-                alert("Account created successfully!");
+                // We use the same virtual domain as signup to keep it username-only for the user
+                await auth.signInWithEmailAndPassword(u + "@playno.local", p);
                 window.location.href = "index.html";
             } catch(e) { 
-                console.error("Signup Error:", e);
-                // Friendly error message for the API key issue
-                if (e.code === 'auth/invalid-api-key' || e.message.includes('api-key')) {
-                    alert("System Error: The API Key is currently missing from the environment. Please ensure the project config is loaded correctly.");
+                console.error("Login Failure:", e);
+                if (e.code === 'auth/invalid-api-key') {
+                    alert("System Error: The API Key 'FIREBASE_API_KEY' is not being recognized. Make sure it is spelled exactly right in your settings!");
                 } else {
-                    alert("Error: " + e.message); 
+                    alert("Login Error: " + e.message); 
                 }
             }
         }
