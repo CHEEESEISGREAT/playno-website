@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PLAYNO - FORUM</title>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <style>
+        body { background-color: #1c5ba3; font-family: Verdana; font-size: 11px; margin: 0; }
+        .main-container { width: 900px; background: white; margin: 10px auto; border: 1px solid #000; min-height: 100vh; }
+        .nav-bar { background: #eee; border-bottom: 1px solid #999; padding: 8px; text-align: center; }
+        .nav-btn { background: #ddd; border: 2px outset #fff; padding: 4px 20px; margin: 0 5px; text-decoration: none; color: black; font-weight: bold; display: inline-block; }
+        
+        .forum-header { background: #003366; color: white; padding: 10px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
+        .forum-table { width: 100%; border-collapse: collapse; margin-top: 5px; }
+        .forum-table th { background: #cedff2; border: 1px solid #999; padding: 8px; text-align: left; font-size: 10px; }
+        .forum-table td { border: 1px solid #ccc; padding: 10px; vertical-align: top; }
+        
+        .topic-link { font-weight: bold; color: #003366; font-size: 13px; text-decoration: none; display: block; }
+        .topic-link:hover { text-decoration: underline; }
+        .topic-desc { color: #666; font-size: 10px; margin-top: 3px; }
+        
+        .breadcrumb { padding: 10px; background: #f9f9f9; border-bottom: 1px solid #ddd; margin-bottom: 10px; font-size: 10px; }
+        .breadcrumb a { color: #003366; text-decoration: none; }
+        
+        .post-count { text-align: center; width: 80px; color: #444; }
+        .last-post { width: 150px; font-size: 9px; color: #555; }
+        
+        .btn-group { display: flex; gap: 5px; }
+        .new-topic-btn { background: #44c767; color: white; border: 1px solid #18ab29; padding: 5px 10px; font-weight: bold; cursor: pointer; font-size: 10px; text-decoration: none; }
+        .random-btn { background: #f39c12; color: white; border: 1px solid #e67e22; padding: 5px 10px; font-weight: bold; cursor: pointer; font-size: 10px; text-decoration: none; }
+
+        #random-display { 
+            background: #fff8e1; border: 1px solid #ffe082; 
+            padding: 10px; margin: 10px 20px; display: none;
+            font-weight: bold; color: #795548; text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="nav-bar">
+            <a href="index.html" class="nav-btn">Home</a>
+            <a href="games.html" class="nav-btn">Games</a>
+            <a href="shopper.html" class="nav-btn">Shopper</a>
+            <a href="forum.html" class="nav-btn">Forum</a>
+        </div>
+
+        <div class="breadcrumb">
+            <a href="index.html">PLAYNO</a> &raquo; <a href="forum.html">Forums</a>
+        </div>
+
+        <div id="random-display"></div>
+        
+        <div style="padding: 0 20px 20px 20px;">
+            <div class="forum-header">
+                <span>OFFICIAL BOARDS</span>
+                <div class="btn-group">
+                    <button class="random-btn" onclick="showRandomTopic()">Random Topic Idea</button>
+                    <a href="#" class="new-topic-btn">Create Topic</a>
+                </div>
+            </div>
+            
+            <table class="forum-table">
+                <thead>
+                    <tr>
+                        <th>Topics</th>
+                        <th class="post-count">Replies</th>
+                        <th class="last-post">Last Post</th>
+                    </tr>
+                </thead>
+                <tbody id="topics-list">
+                    <tr>
+                        <td>
+                            <a href="#" class="topic-link">Welcome to Playno!</a>
+                            <div class="topic-desc">Read the rules and introduce yourself to the community.</div>
+                        </td>
+                        <td class="post-count">1</td>
+                        <td class="last-post">By <b>Admin</b><br>Dec 21, 2025</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="#" class="topic-link">Game Suggestions</a>
+                            <div class="topic-desc">What should we add to the game? Share your ideas for the engine!</div>
+                        </td>
+                        <td class="post-count">0</td>
+                        <td class="last-post">No posts yet</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="#" class="topic-link">Showcase Your Builds</a>
+                            <div class="topic-desc">Post screenshots or links to the cool things you've made.</div>
+                        </td>
+                        <td class="post-count">0</td>
+                        <td class="last-post">No posts yet</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="#" class="topic-link">Scripting Help</a>
+                            <div class="topic-desc">Need help with code? Ask our expert builders here.</div>
+                        </td>
+                        <td class="post-count">0</td>
+                        <td class="last-post">No posts yet</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="#" class="topic-link">Off-Topic Lounge</a>
+                            <div class="topic-desc">Talk about your favorite movies, music, or other hobbies.</div>
+                        </td>
+                        <td class="post-count">0</td>
+                        <td class="last-post">No posts yet</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="#" class="topic-link">Bug Reports</a>
+                            <div class="topic-desc">Found a glitch? Report it here so we can fix it!</div>
+                        </td>
+                        <td class="post-count">0</td>
+                        <td class="last-post">No posts yet</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const envApiKey = (typeof __firebase_config !== 'undefined' && JSON.parse(__firebase_config).apiKey) || "";
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : { 
+            apiKey: envApiKey, 
+            projectId: "playno-auth" 
+        };
+
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+
+        const auth = firebase.auth();
+        const db = firebase.database();
+
+        function showRandomTopic() {
+            const ideas = [
+                "What's your favorite thing about the new update?",
+                "Who is the best builder on Playno right now?",
+                "If you could add one superpower to the game, what would it be?",
+                "Post a funny story from your last game session!",
+                "What kind of hat should we add to the Shopper next?",
+                "Show us your dream base layout!",
+                "Should we add pets to the game?"
+            ];
+            const random = ideas[Math.floor(Math.random() * ideas.length)];
+            const display = document.getElementById('random-display');
+            display.innerText = "Random Topic Idea: " + random;
+            display.style.display = 'block';
+        }
+
+        function loadThreads() {
+            console.log("Forum threads ready.");
+        }
+
+        window.onload = loadThreads;
+    </script>
+</body>
+</html>
