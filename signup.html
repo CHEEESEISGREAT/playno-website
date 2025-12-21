@@ -19,7 +19,7 @@
         <h2 style="font-family: 'Comic Sans MS'; color: red; text-align: center;">SIGN UP</h2>
         
         <label>Username:</label>
-        <input type="text" id="u" placeholder="Choose Username">
+        <input type="text" id="u" placeholder="Choose Username" maxlength="20">
         
         <label>Password:</label>
         <input type="password" id="p" placeholder="Choose Password">
@@ -37,7 +37,7 @@
         <p style="text-align:center"><a href="login.html">Already have an account?</a> | <a href="index.html">Home</a></p>
     </div>
     <script>
-        // Use environment config if available
+        // Use environment config if available, otherwise initialize with blank to avoid immediate crash
         const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {
             apiKey: "", 
             projectId: "playno-auth"
@@ -54,18 +54,28 @@
             const bday = document.getElementById('bday').value;
             const gender = document.getElementById('gender').value;
             
-            if(u.length < 3) return alert("Username too short!");
+            // Username Length Validation
+            if(u.length < 3) return alert("Username must be at least 3 characters!");
+            if(u.length > 20) return alert("Username is too long! (Max 20)");
+            
+            // Special Character Validation (Allows only letters, numbers, and underscores)
+            const validUserRegex = /^[a-zA-Z0-9_]+$/;
+            if(!validUserRegex.test(u)) {
+                return alert("Username can only contain letters, numbers, and underscores (_).");
+            }
+
             if(p.length < 6) return alert("Password must be at least 6 characters!");
             if(!bday) return alert("Please select your birthday!");
             
             try {
-                // Initialize services inside the function to avoid initialization errors
+                // Initialize services inside the function
                 const auth = firebase.auth();
                 const db = firebase.database();
 
+                // Create the user using the virtual domain
                 const cred = await auth.createUserWithEmailAndPassword(u + "@playno.local", p);
                 
-                // Save user profile and password data to the database
+                // Save user profile and timestamp to the database
                 await db.ref('users/' + cred.user.uid + '/profile').set({
                     username: u,
                     birthday: bday,
@@ -79,7 +89,12 @@
                 window.location.href = "index.html";
             } catch(e) { 
                 console.error("Signup Error:", e);
-                alert("Error: " + e.message); 
+                // Friendly error message for the API key issue
+                if (e.code === 'auth/invalid-api-key' || e.message.includes('api-key')) {
+                    alert("System Error: The API Key is currently missing from the environment. Please ensure the project config is loaded correctly.");
+                } else {
+                    alert("Error: " + e.message); 
+                }
             }
         }
     </script>
