@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PLAYNO - JOIN THE FUN</title>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <style>
+        html, body, a, button, input {
+            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><path d='M1 1 L15 28 L28 1 Z' fill='red' stroke='black' stroke-width='1'/><path d='M8 10 Q14 18 20 10' fill='none' stroke='white' stroke-width='2' stroke-linecap='round'/></svg>"), auto !important;
+        }
+        body { background-color: #1c5ba3; font-family: 'Verdana'; font-size: 11px; margin: 0; }
+        .box { width: 400px; background: white; border: 2px solid black; margin: 100px auto; padding: 20px; box-shadow: 10px 10px 0px rgba(0,0,0,0.3); }
+        .header { background: #003366; color: white; padding: 10px; font-weight: bold; margin: -20px -20px 20px -20px; }
+        input { width: 95%; padding: 10px; margin-bottom: 10px; border: 1px solid #777; }
+        .btn { background: #44c767; color: white; padding: 10px; width: 100%; border: 2px solid #18ab29; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="header">CREATE A PLAYNO ACCOUNT</div>
+        <div id="status" style="color: red; font-weight: bold; margin-bottom: 10px;"></div>
+        <input type="email" id="email" placeholder="Email Address">
+        <input type="text" id="username" placeholder="Choose Username">
+        <input type="password" id="pass" placeholder="Password">
+        <button class="btn" onclick="register()">SIGN UP!</button>
+        <p><a href="index.html">Back to Home</a></p>
+    </div>
+
+    <script>
+        // Use your same Firebase Config here
+        const firebaseConfig = { apiKey: "YOUR_API_KEY", projectId: "your-project" };
+        firebase.initializeApp(firebaseConfig);
+
+        async function register() {
+            const email = document.getElementById('email').value;
+            const pass = document.getElementById('pass').value;
+            try {
+                await firebase.auth().createUserWithEmailAndPassword(email, pass);
+                window.location.href = 'index.html';
+            } catch (e) { document.getElementById('status').innerText = e.message; }
+        }
+    </script>
+</body>
+</html>
