@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PLAYNO - LOGIN</title>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <style>
+        /* [Insert Cursor and Body CSS from signup.html here] */
+        .box { width: 350px; background: white; border: 2px solid black; margin: 100px auto; padding: 20px; text-align: center; }
+        input { width: 90%; padding: 8px; margin-bottom: 10px; }
+        .btn { background: #3498db; color: white; border: 1px solid black; padding: 10px; width: 100%; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2 style="font-family: 'Comic Sans MS'; color: red;">LOGIN TO PLAYNO</h2>
+        <div id="status" style="color: red;"></div>
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="pass" placeholder="Password">
+        <button class="btn" onclick="doLogin()">LOG IN</button>
+        <p>New? <a href="signup.html">Register here</a></p>
+    </div>
+    <script>
+        const firebaseConfig = { apiKey: "YOUR_API_KEY", projectId: "your-project" };
+        firebase.initializeApp(firebaseConfig);
+
+        async function doLogin() {
+            try {
+                await firebase.auth().signInWithEmailAndPassword(document.getElementById('email').value, document.getElementById('pass').value);
+                window.location.href = 'index.html';
+            } catch (e) { document.getElementById('status').innerText = e.message; }
+        }
+    </script>
+</body>
+</html>
