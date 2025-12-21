@@ -18,7 +18,7 @@
             overflow-x: hidden;
         }
 
-        /* --- THE CSS LOGO (The "Cool" Bloxy Logo) --- */
+        /* --- THE CSS LOGO --- */
         .logo-box {
             width: 100px;
             height: 100px;
@@ -71,7 +71,7 @@
             transform: skewX(-20deg);
         }
 
-        /* --- NAVIGATION MESS --- */
+        /* --- NAVIGATION --- */
         .nav {
             background: #000;
             padding: 10px;
@@ -102,7 +102,7 @@
             margin: auto;
         }
 
-        /* --- SIDEBAR CLUTTER --- */
+        /* --- SIDEBAR --- */
         .sidebar {
             width: 250px;
             background: #ddd;
@@ -119,12 +119,11 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            border: 4px solid red;
+            border: 4px solid #00ff00;
             margin-bottom: 20px;
             animation: shake 0.5s infinite;
         }
 
-        /* --- DOWNLOAD SECTION --- */
         .main-content { flex: 1; }
 
         .download-zone {
@@ -148,7 +147,7 @@
         }
         .big-red-button:active { transform: translate(5px, 5px); box-shadow: 5px 5px 0px black; }
 
-        /* --- GAMES GRID (UNORGANIZED) --- */
+        /* --- GAMES GRID --- */
         .games-mess {
             display: flex;
             flex-wrap: wrap;
@@ -191,7 +190,6 @@
             margin-top: 50px;
         }
 
-        /* Decorative stars */
         .star { position: absolute; color: yellow; font-size: 24px; pointer-events: none; }
     </style>
 </head>
@@ -201,42 +199,42 @@
         <div class="logo-box"></div>
         <div class="motto-flash">★ FUN FOR ALL ★</div>
         <div style="background: white; padding: 10px; border: 2px solid black;">
-            <b>Users Online:</b> 6,432<br>
-            <b>Your ID:</b> Guest_9921
+            <b>Logged in as:</b> Guest<br>
+            <b>Status:</b> Ready to Build
         </div>
     </div>
 
     <div class="marquee-zone">
-        <marquee scrollamount="15">!!! NEW UPDATE !!! BUILD YOUR OWN WORLD !!! DOWNLOAD NOW !!! CLICK THE BIG BUTTON !!! NO VIRUS !!! 100% FREE !!!</marquee>
+        <marquee scrollamount="15">!!! NEW UPDATE !!! BUILD YOUR OWN WORLD !!! DOWNLOAD NOW !!! CLICK THE BIG BUTTON !!! NO VIRUS !!! 100% FREE !!! ALL ASSETS NOW UNLOCKED !!!</marquee>
     </div>
 
     <div class="nav">
         <a href="#" class="nav-link">HOME</a>
         <a href="#" class="nav-link">GAMES</a>
-        <a href="#" class="nav-link">CATALOG</a>
-        <a href="#" class="nav-link">BUILDERS</a>
-        <a href="#" class="nav-link">FORUMS</a>
+        <a href="#" class="nav-link">ASSET SHOP</a>
+        <a href="#" class="nav-link">PRO BUILDERS</a>
+        <a href="#" class="nav-link">COMMUNITY</a>
     </div>
 
     <div class="container">
         <div class="sidebar">
             <div class="ad-space">
-                <h2>GET FREE<br>MEMBERSHIP<br>NOW!!</h2>
+                <h2>JOIN THE<br>PRO BUILDERS<br>CREW!!</h2>
             </div>
             <div style="border: 2px inset white; padding: 5px; background: #999;">
-                <h3>Top Players</h3>
-                1. Builderman<br>
-                2. Telamon<br>
-                3. You?
+                <h3>Recent Worlds</h3>
+                * Lava Jump<br>
+                * Brick City<br>
+                * Plane Test
             </div>
             <br>
-            <center><img src="https://via.placeholder.com/150x200?text=COOL+AVATAR" style="border: 4px solid blue;"></center>
+            <center><img src="https://via.placeholder.com/150x200?text=YOUR+AVATAR" style="border: 4px solid blue;"></center>
         </div>
 
         <div class="main-content">
             <div class="download-zone">
                 <h1 class="blink">>>> SYSTEM ALERT: ENGINE READY <<<</h1>
-                <p>Click below to install the Playno Game Engine 2008 Edition!</p>
+                <p>Click below to install the Playno Game Engine 2008 Edition! Everyone gets full building permissions!</p>
                 <br>
                 <button class="big-red-button" onclick="downloadGame()">
                     INSTALL PLAYNO.EXE (PY)
@@ -248,24 +246,24 @@
                 </div>
             </div>
 
-            <h2 style="color: yellow; text-shadow: 2px 2px black; font-size: 30px;">HOT GAMES</h2>
+            <h2 style="color: yellow; text-shadow: 2px 2px black; font-size: 30px;">LATEST CREATIONS</h2>
             <div class="games-mess" id="gamesGrid">
                 </div>
         </div>
     </div>
 
     <div class="footer">
-        <p>PLAYNO is a registered trademark of... nobody! It's for everyone!</p>
+        <p>PLAYNO is an open project for everyone! No subscriptions required!</p>
         <p>Copyright 2008 - 2025 | Built with passion</p>
         <div style="font-size: 40px;">🧱 🕹️ 🏗️</div>
     </div>
 
     <script>
         const games = [
-            { name: "Super Obby", creator: "NoobMaster", likes: 500, emoji: "🌋" },
-            { name: "Destroy the Wall", creator: "Admin", likes: 1200, emoji: "💣" },
-            { name: "City Life RP", creator: "Roleplayer", likes: 45, emoji: "🏠" },
-            { name: "Base Wars", creator: "Soldier", likes: 999, emoji: "🔫" }
+            { name: "Super Obby", creator: "MapMaker", emoji: "🌋" },
+            { name: "Shatter Physics", creator: "PhysicsFan", emoji: "💣" },
+            { name: "Town Square RP", creator: "CityBuilder", emoji: "🏠" },
+            { name: "Fortress Defense", creator: "Commander", emoji: "🛡️" }
         ];
 
         function loadGames() {
@@ -276,26 +274,24 @@
                 item.innerHTML = `
                     <div class="thumb">${game.emoji}</div>
                     <b>${game.name}</b><br>
-                    <small>By: ${game.creator}</small><br>
-                    <span style="color: green;">Rating: ${game.likes}%</span><br>
-                    <button onclick="alert('Downloading ${game.name}...')">PLAY</button>
+                    <small>By: ${game.creator}</small><br><br>
+                    <button onclick="alert('Launching ${game.name}...')">PLAY</button>
                 `;
                 grid.appendChild(item);
             });
         }
 
         function downloadGame() {
-            const code = `# Messy Playno Script\nprint("PLAYNO STARTING...")`; // Simplified for brevity
+            const code = `# Playno Engine Script\nprint("PLAYNO ENGINE INITIALIZED")`;
             const blob = new Blob([code], { type: 'text/plain' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'game.py';
+            a.download = 'playno_engine.py';
             a.click();
-            alert('GAME DOWNLOADED!! RUN IT NOW!!');
+            alert('ENGINE DOWNLOADED!! HAPPY BUILDING!!');
         }
 
-        // Add random stars for extra messiness
         for(let i=0; i<30; i++) {
             let s = document.createElement('div');
             s.className = 'star';
