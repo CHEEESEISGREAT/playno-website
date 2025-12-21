@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PLAYNO - FUN FOR ALL</title>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
     <style>
         /* --- CUSTOM SMILEY CURSOR --- */
-        html, body, a, button {
+        html, body, a, button, input {
             cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><path d='M1 1 L15 28 L28 1 Z' fill='red' stroke='black' stroke-width='1'/><path d='M8 10 Q14 18 20 10' fill='none' stroke='white' stroke-width='2' stroke-linecap='round'/></svg>"), auto !important;
         }
 
@@ -15,20 +19,18 @@
             background-color: #1c5ba3;
             background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABtJREFUeNpiZGBg+M+AAxCn4sQjDwYYOwoQEAAhYgB1008r/QAAAABJRU5ErkJggg==');
             font-family: 'Verdana', 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            font-size: 11px;
-            color: #333;
+            margin: 0; padding: 0; font-size: 11px; color: #333;
+            overflow-x: hidden;
         }
-
-        a { color: #0000ff; text-decoration: underline; }
-        a:hover { color: red; }
 
         .main-container {
             width: 900px;
             background: white;
             margin: 10px auto;
             border: 1px solid #000;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         /* --- HEADER --- */
@@ -37,298 +39,327 @@
             height: 100px;
             border-bottom: 2px solid #003366;
             position: relative;
+            flex-shrink: 0;
         }
 
         .logo-area {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: white;
-            border: 2px solid black;
-            padding: 5px;
-            font-family: 'Comic Sans MS';
-            font-size: 30px;
-            font-weight: bold;
-            color: red;
-            transform: rotate(-3deg);
-            box-shadow: 3px 3px 0px rgba(0,0,0,0.3);
+            position: absolute; top: 15px; left: 15px;
+            background: white; border: 2px solid black;
+            padding: 8px 15px; font-family: 'Comic Sans MS';
+            font-size: 34px; font-weight: bold; color: red;
+            transform: rotate(-3deg); box-shadow: 4px 4px 0px rgba(0,0,0,0.3);
+        }
+
+        .auth-status {
+            float: right; padding: 10px; color: white;
+            font-weight: bold; text-shadow: 1px 1px black;
+            font-size: 12px;
         }
 
         .motto-banner {
-            background: red;
-            color: yellow;
-            font-weight: bold;
-            text-align: center;
-            border-bottom: 2px solid black;
-            padding: 5px;
-            font-size: 14px;
-            font-family: 'Comic Sans MS';
+            background: red; color: yellow; font-weight: bold;
+            text-align: center; border-bottom: 2px solid black;
+            padding: 5px; font-size: 14px; font-family: 'Comic Sans MS';
         }
 
-        /* --- NAV BAR --- */
+        /* --- NAVIGATION --- */
         .nav-bar {
-            background: #eee;
-            border-bottom: 1px solid #999;
-            padding: 5px;
-            text-align: center;
+            background: #eee; border-bottom: 1px solid #999;
+            padding: 8px; text-align: center;
         }
         .nav-btn {
-            background: #ddd;
-            border: 2px outset #fff;
-            padding: 2px 15px;
-            margin: 0 5px;
-            text-decoration: none;
-            color: black;
-            font-weight: bold;
+            background: #ddd; border: 2px outset #fff;
+            padding: 4px 20px; margin: 0 5px;
+            text-decoration: none; color: black; font-weight: bold;
+            display: inline-block;
         }
+        .nav-btn:hover { background: #ccc; }
         .nav-btn:active { border-style: inset; }
 
-        /* --- CONTENT LAYOUT --- */
+        /* --- CONTENT AREA --- */
         .content-wrapper {
-            display: flex;
-            padding: 10px;
-            gap: 10px;
+            display: flex; padding: 15px; gap: 15px; flex-grow: 1;
         }
 
-        .sidebar {
-            width: 180px;
-            flex-shrink: 0;
-        }
-        
-        .sidebar-box {
-            border: 1px solid #003366;
-            margin-bottom: 10px;
-        }
-        
+        .sidebar { width: 200px; flex-shrink: 0; }
+        .sidebar-box { border: 1px solid #003366; margin-bottom: 15px; box-shadow: 2px 2px 0px #ccc; }
         .sidebar-header {
-            background: #003366;
-            color: white;
-            padding: 3px;
-            font-weight: bold;
-            text-align: center;
+            background: #003366; color: white; padding: 5px;
+            font-weight: bold; text-align: center; font-size: 12px;
         }
+        .sidebar-content { padding: 10px; background: #eef; text-align: center; }
         
-        .sidebar-content {
-            padding: 5px;
-            background: #eef;
-            text-align: center;
+        input[type="text"], input[type="password"], input[type="email"] {
+            width: 90%; margin-bottom: 8px; border: 1px solid #777;
+            padding: 3px; font-size: 11px;
+        }
+
+        .btn-action {
+            background: #eee; border: 1px solid #333;
+            padding: 3px 10px; font-weight: bold; cursor: pointer;
         }
 
         /* --- MAIN CONTENT --- */
-        .main-content {
-            flex-grow: 1;
-        }
-
+        .main-content { flex-grow: 1; }
+        
         .big-alert-box {
-            background: #ffffcc;
-            border: 2px solid #ffcc00;
-            padding: 15px;
-            margin-bottom: 15px;
-            text-align: center;
+            background: #ffffcc; border: 2px solid #ffcc00;
+            padding: 20px; margin-bottom: 20px; text-align: center;
         }
 
         .download-btn {
             background: linear-gradient(to bottom, #44c767 5%, #5cbf2a 100%);
-            background-color: #44c767;
-            border: 3px solid #18ab29;
-            display: inline-block;
-            color: #ffffff;
-            font-family: Arial;
-            font-size: 24px;
-            font-weight: bold;
-            padding: 10px 30px;
-            text-decoration: none;
-            text-shadow: 1px 1px 0px #2f6627;
-            border-radius: 5px;
+            background-color: #44c767; border: 3px solid #18ab29;
+            display: inline-block; color: #ffffff; font-family: Arial;
+            font-size: 26px; font-weight: bold; padding: 15px 40px;
+            text-decoration: none; text-shadow: 1px 1px 0px #2f6627;
+            border-radius: 8px; box-shadow: 0px 4px 0px #18ab29;
+        }
+        .download-btn:active { transform: translateY(2px); box-shadow: 0px 2px 0px #18ab29; }
+
+        /* --- GAMES LIST --- */
+        .game-card {
+            border: 1px solid #ccc; background: #fff;
+            padding: 10px; margin-bottom: 10px;
+            display: flex; align-items: center; gap: 15px;
+        }
+        .game-icon {
+            width: 70px; height: 70px; background: #eee;
+            border: 1px solid #999; display: flex;
+            align-items: center; justify-content: center; font-size: 40px;
+        }
+        .game-details h3 { margin: 0 0 5px 0; color: #003366; }
+        .game-details p { margin: 0; color: #666; font-size: 10px; }
+        
+        .dl-game-btn {
+            margin-left: auto; background: #3498db;
+            color: white; border: 1px solid #000;
+            padding: 8px 12px; font-weight: bold; text-decoration: none;
         }
 
-        .game-entry {
-            border: 1px solid #ccc;
-            background: #f9f9f9;
-            padding: 5px;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        /* --- MODALS --- */
+        .overlay {
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; background: rgba(0,0,0,0.8);
+            z-index: 9999; justify-content: center; align-items: center;
         }
-
-        .game-thumb { width: 80px; height: 60px; background: #ccc; border: 1px solid black; display: flex; align-items: center; justify-content: center; font-size: 30px; }
-        .game-info h3 { margin: 0; color: #003366; font-size: 14px; }
-        .game-stats { font-size: 9px; color: #666; }
-
-        .dl-small-btn {
-            margin-left: auto;
-            background: #3498db;
-            color: white;
-            border: 1px solid black;
-            padding: 5px 10px;
-            font-size: 11px;
-            font-weight: bold;
+        .modal-box {
+            background: white; border: 5px solid #003366;
+            padding: 25px; width: 450px; box-shadow: 15px 15px 0px rgba(0,0,0,0.4);
         }
-
-        /* --- INSTRUCTION OVERLAY --- */
-        #instruction-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-        .modal {
-            background: #fff;
-            border: 4px solid #003366;
-            padding: 20px;
-            max-width: 400px;
-            text-align: left;
-            box-shadow: 10px 10px 0px rgba(0,0,0,0.5);
-        }
+        .modal-box h2 { font-family: 'Comic Sans MS'; color: red; margin-top: 0; }
 
         .footer {
-            border-top: 1px solid #ccc;
-            text-align: center;
-            padding: 10px;
-            font-size: 10px;
-            color: #666;
-            background: #f1f1f1;
+            border-top: 1px solid #999; text-align: center;
+            padding: 20px; font-size: 10px; color: #777;
+            background: #f1f1f1; margin-top: auto;
         }
+
+        #error-msg { color: red; font-weight: bold; margin-bottom: 10px; display: none; }
     </style>
 </head>
 <body>
 
-    <div id="instruction-overlay">
-        <div class="modal">
-            <h2 style="color:red; font-family:'Comic Sans MS'; margin-top:0;">HOW TO PLAY:</h2>
-            <ol style="font-size: 12px; line-height: 1.6; font-family: Verdana;">
-                <li>Open your <b>Hard Drive (C:)</b>.</li>
-                <li>Create a folder named <b>Playno-Game</b>.</li>
-                <li>Inside that, create a folder named <b>games</b>.</li>
-                <li>Move the <b>.plno</b> file into that <b>games</b> folder.</li>
-                <li>Run <code>game.py</code> to start playing!</li>
-            </ol>
-            <button onclick="document.getElementById('instruction-overlay').style.display='none'" style="width:100%; padding:10px; font-weight:bold; background:#eee; border:2px outset #fff;">OK, I GOT IT!</button>
+    <div id="dl-modal" class="overlay">
+        <div class="modal-box">
+            <h2>INSTALLATION REQUIRED!</h2>
+            <div style="font-family: Verdana; font-size: 12px; line-height: 1.6;">
+                <p>To play <b>PLAYNO</b> games, you must follow these steps:</p>
+                <ol>
+                    <li>Go to your <b>(C:) Drive</b>.</li>
+                    <li>Create a folder: <code style="background:#eee;">Playno-Game</code></li>
+                    <li>Inside that, create a folder: <code style="background:#eee;">games</code></li>
+                    <li>Put the <b>.plno</b> file you just got into the <b>games</b> folder.</li>
+                    <li>Run <b>game.py</b> from the main folder.</li>
+                </ol>
+            </div>
+            <button class="btn-action" style="width: 100%; padding: 10px;" onclick="closeModal()">I UNDERSTAND</button>
         </div>
     </div>
 
     <div class="main-container">
         <div class="header">
             <div class="logo-area">PLAYNO</div>
-            <div style="float: right; padding: 10px; color: white; font-weight: bold; text-shadow: 1px 1px black;">
-                Welcome, Guest! [ <a href="#" style="color: yellow;">Login</a> ] [ <a href="#" style="color: yellow;">Register</a> ]
+            <div class="auth-status" id="header-auth">
+                <div id="guest-header">
+                    Welcome, Guest! [ <a href="login.html" style="color: yellow;">Login</a> ] [ <a href="signup.html" style="color: yellow;">Register</a> ]
+                </div>
+                <div id="user-header" style="display: none;">
+                    Welcome, <span id="display-name" style="color: #fff;">User</span>! 
+                    [ <a href="#" onclick="handleLogout()" style="color: yellow;">Log Out</a> ]
+                </div>
             </div>
         </div>
 
         <div class="motto-banner">
-            <marquee scrollamount="10">★ ★ ★ FUN FOR ALL ★ ★ ★ BUILD GAMES ★ ★ ★ PLAY FOR FREE ★ ★ ★ FUN FOR ALL ★ ★ ★</marquee>
+            <marquee scrollamount="8">★ ★ ★ NO ROB-X ★ ★ ★ NO BUILDERS CLUB ★ ★ ★ BUILD YOUR OWN WORLDS ★ ★ ★ PLAY FOR FREE ★ ★ ★</marquee>
         </div>
 
         <div class="nav-bar">
-            <a href="#" class="nav-btn">Home</a>
+            <a href="index.html" class="nav-btn">Home</a>
             <a href="#games" class="nav-btn">Games</a>
-            <a href="#" class="nav-btn">Catalog</a>
-            <a href="#" class="nav-btn">People</a>
-            <a href="#" class="nav-btn">Forum</a>
+            <a href="catalog.html" class="nav-btn">Catalog</a>
+            <a href="forum.html" class="nav-btn">Forum</a>
         </div>
 
         <div class="content-wrapper">
             <div class="sidebar">
-                <div class="sidebar-box">
+                <div id="side-login-box" class="sidebar-box">
                     <div class="sidebar-header">Member Login</div>
                     <div class="sidebar-content">
-                        <input type="text" placeholder="Username" style="width: 90%; margin-bottom: 2px;">
-                        <input type="password" placeholder="Password" style="width: 90%; margin-bottom: 2px;">
-                        <button>Log In</button>
-                        <br><a href="#" style="font-size: 9px;">Forgot pass?</a>
+                        <div id="error-msg">Invalid Login!</div>
+                        <input type="text" id="login-email" placeholder="Email">
+                        <input type="password" id="login-pass" placeholder="Password">
+                        <button class="btn-action" onclick="handleLogin()">Login</button>
+                        <p style="font-size: 9px; margin-top: 10px;">
+                            No account? <a href="signup.html">Join Playno!</a>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="sidebar-box">
+                    <div class="sidebar-header">Server Status</div>
+                    <div class="sidebar-content" style="font-size: 10px;">
+                        <b>Internal:</b> <span style="color: green;">ONLINE</span><br>
+                        <b>Players:</b> 1,204<br>
+                        <b>Engine:</b> v0.8.2
                     </div>
                 </div>
             </div>
 
             <div class="main-content">
-                <div class="big-alert-box" id="download">
+                <div class="big-alert-box">
                     <h1 style="font-family: 'Comic Sans MS'; color: red; margin: 0;">PLAYNO ENGINE</h1>
-                    <p>Build your own world today!!! Its free!!</p>
+                    <p style="font-weight: bold;">Create, Build, and Play with friends!</p>
                     <br>
-                    <button class="download-btn" onclick="fetchAndDownloadGame()">
-                        INSTALL PLAYNO
+                    <button class="download-btn" onclick="downloadEngine()">
+                        DOWNLOAD ENGINE
                     </button>
-                    <p id="status-msg" style="color: red; font-weight: bold;"></p>
                 </div>
 
-                <h2 id="games" style="border-bottom: 2px solid blue; color: blue; font-family: 'Comic Sans MS';">Cool Games</h2>
-                <div id="games-list"></div>
+                <h2 id="games" style="border-bottom: 2px solid blue; color: blue; font-family: 'Comic Sans MS'; padding-bottom: 5px;">Cool Games</h2>
+                
+                <div id="games-container">
+                    <div class="game-card">
+                        <div class="game-icon">🏙️</div>
+                        <div class="game-details">
+                            <h3>Mega City 2008</h3>
+                            <p>Created by: <b>Admin</b></p>
+                            <p>Visits: 45,902</p>
+                        </div>
+                        <button class="dl-game-btn" onclick="downloadGame('MegaCity')">Download Game</button>
+                    </div>
+
+                    <div class="game-card">
+                        <div class="game-icon">🏃</div>
+                        <div class="game-details">
+                            <h3>Epic Parkour Obby</h3>
+                            <p>Created by: <b>SpeedRunner</b></p>
+                            <p>Visits: 12,003</p>
+                        </div>
+                        <button class="dl-game-btn" onclick="downloadGame('Parkour')">Download Game</button>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="footer">
-            PLAYNO &copy; 2008-2024. All rights reserved.<br>
-            <a href="#">Privacy Policy</a> | <a href="#">Terms</a> | <a href="#">Jobs</a>
+            PLAYNO &copy; 2008-2025. All rights reserved. <br>
+            <a href="#">Terms of Service</a> | <a href="#">Privacy</a> | <a href="#">Help</a>
             <br><br>
-            Best viewed in Internet Explorer 7.
+            <i>Best viewed in Internet Explorer 7 or 8.</i>
         </div>
     </div>
 
     <script>
-        const REPO_FILE_URL = 'https://raw.githubusercontent.com/CHEEESEISGREAT/playno-website/main/game.py';
+        // --- FIREBASE REAL CONFIGURATION ---
+        // REPLACE THESE WITH YOUR OWN KEYS FROM FIREBASE CONSOLE!
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "your-project.firebaseapp.com",
+            databaseURL: "https://your-project-default-rtdb.firebaseio.com",
+            projectId: "your-project",
+            storageBucket: "your-project.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "1:12345:web:abcd"
+        };
 
-        const games = [
-            { name: "City", creator: "Admin", emoji: "🏙️", data: { name: "City", parts: [] } },
-            { name: "Parkour Obby", creator: "xxSniperxx", emoji: "🏃", data: { name: "Parkour", parts: [] } },
-            { name: "Free Build", creator: "Noob123", emoji: "🏗️", data: { name: "Sandbox", parts: [] } }
-        ];
-        
-        function loadGames() {
-            const list = document.getElementById('games-list');
-            list.innerHTML = '';
-            games.forEach((game, index) => {
-                const entry = document.createElement('div');
-                entry.className = 'game-entry';
-                entry.innerHTML = `
-                    <div class="game-thumb">${game.emoji}</div>
-                    <div class="game-info">
-                        <h3>${game.name}</h3>
-                        <div class="game-stats">By: ${game.creator}</div>
-                    </div>
-                    <button class="dl-small-btn" onclick="downloadLevelFile(${index})">
-                        Download Game
-                    </button>
-                `;
-                list.appendChild(entry);
-            });
-        }
-        
-        async function fetchAndDownloadGame() {
-            const status = document.getElementById('status-msg');
-            status.innerHTML = "Downloading engine...";
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.database();
+
+        // --- AUTHENTICATION LOGIC ---
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                // User is signed in
+                document.getElementById('guest-header').style.display = 'none';
+                document.getElementById('side-login-box').style.display = 'none';
+                document.getElementById('user-header').style.display = 'block';
+                document.getElementById('display-name').innerText = user.email.split('@')[0];
+            } else {
+                // User is signed out
+                document.getElementById('guest-header').style.display = 'block';
+                document.getElementById('side-login-box').style.display = 'block';
+                document.getElementById('user-header').style.display = 'none';
+            }
+        });
+
+        async function handleLogin() {
+            const email = document.getElementById('login-email').value;
+            const pass = document.getElementById('login-pass').value;
+            const err = document.getElementById('error-msg');
+
             try {
-                const response = await fetch(REPO_FILE_URL);
-                const code = await response.text();
-                const blob = new Blob([code], { type: 'text/x-python' });
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'game.py';
-                a.click();
-                status.innerHTML = "Engine Downloaded!";
+                await auth.signInWithEmailAndPassword(email, pass);
+                err.style.display = 'none';
             } catch (error) {
-                status.innerHTML = "Download Failed!";
+                err.style.display = 'block';
+                err.innerText = error.message;
             }
         }
-        
-        function downloadLevelFile(index) {
-            const game = games[index];
-            const json = JSON.stringify(game.data, null, 2);
-            const blob = new Blob([json], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = game.name + '.plno';
-            a.click();
-            URL.revokeObjectURL(url);
-            document.getElementById('instruction-overlay').style.display = 'flex';
+
+        function handleLogout() {
+            auth.signOut();
         }
-        
-        loadGames();
+
+        // --- DOWNLOAD LOGIC ---
+        function downloadEngine() {
+            // Replace with your actual GitHub raw link
+            const engineUrl = "https://raw.githubusercontent.com/CHEEESEISGREAT/playno-website/main/game.py";
+            window.location.href = engineUrl;
+        }
+
+        function downloadGame(gameName) {
+            // This creates a real .plno file in the browser and downloads it
+            const gameData = {
+                title: gameName,
+                version: "1.0",
+                timestamp: Date.now(),
+                world: "Placeholder World Data"
+            };
+
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(gameData));
+            const dlAnchor = document.createElement('a');
+            dlAnchor.setAttribute("href", dataStr);
+            dlAnchor.setAttribute("download", gameName + ".plno");
+            dlAnchor.click();
+
+            // Show the instructions
+            document.getElementById('dl-modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('dl-modal').style.display = 'none';
+        }
+
+        // --- DATABASE INTERACTION (FOR LATER) ---
+        function saveUserData(userId, name) {
+            db.ref('users/' + userId).set({
+                username: name,
+                joinDate: Date.now()
+            });
+        }
     </script>
 </body>
 </html>
