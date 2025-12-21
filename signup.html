@@ -5,27 +5,41 @@
     <title>PLAYNO - JOIN</title>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     <style>
-        body { background-color: #1c5ba3; font-family: Verdana; display: flex; justify-content: center; padding-top: 80px; }
+        body { background-color: #1c5ba3; font-family: Verdana; display: flex; justify-content: center; padding-top: 50px; }
         .box { background: white; border: 2px solid black; padding: 30px; width: 350px; box-shadow: 10px 10px 0px rgba(0,0,0,0.5); }
-        input { width: 93%; padding: 8px; margin-bottom: 15px; }
+        input, select { width: 93%; padding: 8px; margin-bottom: 15px; font-family: Verdana; font-size: 11px; }
         .btn { width: 100%; padding: 12px; background: #44c767; color: white; font-weight: bold; border: 2px solid #18ab29; cursor: pointer; }
+        label { display: block; text-align: left; font-size: 10px; font-weight: bold; margin-bottom: 2px; }
     </style>
 </head>
 <body>
     <div class="box">
         <h2 style="font-family: 'Comic Sans MS'; color: red; text-align: center;">SIGN UP</h2>
-        <p style="font-size: 11px; text-align: center;">No Email Required! Just choose a username.</p>
+        
+        <label>Username:</label>
         <input type="text" id="u" placeholder="Choose Username">
+        
+        <label>Password:</label>
         <input type="password" id="p" placeholder="Choose Password">
+        
+        <label>Birthday:</label>
+        <input type="date" id="bday">
+        
+        <label>Gender:</label>
+        <select id="gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+
         <button class="btn" onclick="doSignup()">JOIN PLAYNO!</button>
-        <p style="text-align:center"><a href="index.html">Back to Home</a></p>
+        <p style="text-align:center"><a href="login.html">Already have an account?</a> | <a href="index.html">Home</a></p>
     </div>
     <script>
-        // Use the global environment variables provided by the platform
+        // Use environment config if available
         const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {
-            apiKey: "", // Key is handled by environment if blank
-            authDomain: "playno-auth.firebaseapp.com",
+            apiKey: "", 
             projectId: "playno-auth"
         };
 
@@ -34,20 +48,34 @@
             firebase.initializeApp(firebaseConfig);
         }
 
-        const auth = firebase.auth();
-
         async function doSignup() {
             const u = document.getElementById('u').value.trim();
             const p = document.getElementById('p').value;
+            const bday = document.getElementById('bday').value;
+            const gender = document.getElementById('gender').value;
             
             if(u.length < 3) return alert("Username too short!");
             if(p.length < 6) return alert("Password must be at least 6 characters!");
+            if(!bday) return alert("Please select your birthday!");
             
             try {
-                // Since the API Key is managed externally/on GitHub, we ensure 
-                // the auth call is wrapped to catch initialization errors.
+                // Initialize services inside the function to avoid initialization errors
+                const auth = firebase.auth();
+                const db = firebase.database();
+
                 const cred = await auth.createUserWithEmailAndPassword(u + "@playno.local", p);
+                
+                // Save user profile and password data to the database
+                await db.ref('users/' + cred.user.uid + '/profile').set({
+                    username: u,
+                    birthday: bday,
+                    gender: gender,
+                    joined: Date.now()
+                });
+
                 await cred.user.updateProfile({ displayName: u });
+                
+                alert("Account created successfully!");
                 window.location.href = "index.html";
             } catch(e) { 
                 console.error("Signup Error:", e);
