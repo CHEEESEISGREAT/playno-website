@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PLAYNO - FUN FOR ALL</title>
     <style>
+        /* --- CUSTOM SMILEY CURSOR --- */
+        html, body, a, button {
+            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><path d='M1 1 L15 28 L28 1 Z' fill='red' stroke='black' stroke-width='1'/><path d='M8 10 Q14 18 20 10' fill='none' stroke='white' stroke-width='2' stroke-linecap='round'/></svg>"), auto !important;
+        }
+
         /* --- THE 2008 AESTHETIC --- */
         body {
             background-color: #1c5ba3;
@@ -16,7 +21,7 @@
             color: #333;
         }
 
-        a { color: #0000ff; text-decoration: underline; cursor: pointer; }
+        a { color: #0000ff; text-decoration: underline; }
         a:hover { color: red; }
 
         .main-container {
@@ -127,7 +132,6 @@
             background-color: #44c767;
             border: 3px solid #18ab29;
             display: inline-block;
-            cursor: pointer;
             color: #ffffff;
             font-family: Arial;
             font-size: 24px;
@@ -160,7 +164,6 @@
             padding: 5px 10px;
             font-size: 11px;
             font-weight: bold;
-            cursor: pointer;
         }
 
         /* --- INSTRUCTION OVERLAY --- */
@@ -204,7 +207,7 @@
                 <li>Move the <b>.plno</b> file into that <b>games</b> folder.</li>
                 <li>Run <code>game.py</code> to start playing!</li>
             </ol>
-            <button onclick="document.getElementById('instruction-overlay').style.display='none'" style="width:100%; padding:10px; font-weight:bold; cursor:pointer; background:#eee; border:2px outset #fff;">OK, I GOT IT!</button>
+            <button onclick="document.getElementById('instruction-overlay').style.display='none'" style="width:100%; padding:10px; font-weight:bold; background:#eee; border:2px outset #fff;">OK, I GOT IT!</button>
         </div>
     </div>
 
@@ -243,7 +246,7 @@
 
             <div class="main-content">
                 <div class="big-alert-box" id="download">
-                    <h1 style="font-family: 'Comic Sans MS'; color: red; margin: 0;">PLAYNO GAME ENGINE</h1>
+                    <h1 style="font-family: 'Comic Sans MS'; color: red; margin: 0;">PLAYNO ENGINE</h1>
                     <p>Build your own world today!!! Its free!!</p>
                     <br>
                     <button class="download-btn" onclick="fetchAndDownloadGame()">
@@ -269,9 +272,9 @@
         const REPO_FILE_URL = 'https://raw.githubusercontent.com/CHEEESEISGREAT/playno-website/main/game.py';
 
         const games = [
-            { name: "City", creator: "Admin", likes: 89, emoji: "🏙️", data: { name: "City", parts: [] } },
-            { name: "Parkour Obby", creator: "xxSniperxx", likes: 156, emoji: "🏃", data: { name: "Parkour", parts: [] } },
-            { name: "Free Build", creator: "Noob123", likes: 234, emoji: "🏗️", data: { name: "Sandbox", parts: [] } }
+            { name: "City", creator: "Admin", emoji: "🏙️", data: { name: "City", parts: [] } },
+            { name: "Parkour Obby", creator: "xxSniperxx", emoji: "🏃", data: { name: "Parkour", parts: [] } },
+            { name: "Free Build", creator: "Noob123", emoji: "🏗️", data: { name: "Sandbox", parts: [] } }
         ];
         
         function loadGames() {
@@ -322,8 +325,6 @@
             a.download = game.name + '.plno';
             a.click();
             URL.revokeObjectURL(url);
-            
-            // Show instructions
             document.getElementById('instruction-overlay').style.display = 'flex';
         }
         
