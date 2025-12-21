@@ -56,12 +56,6 @@
             font-size: 12px;
         }
 
-        .motto-banner {
-            background: red; color: yellow; font-weight: bold;
-            text-align: center; border-bottom: 2px solid black;
-            padding: 5px; font-size: 14px; font-family: 'Comic Sans MS';
-        }
-
         /* --- NAVIGATION --- */
         .nav-bar {
             background: #eee; border-bottom: 1px solid #999;
@@ -89,7 +83,7 @@
         }
         .sidebar-content { padding: 10px; background: #eef; text-align: center; }
         
-        input[type="text"], input[type="password"], input[type="email"] {
+        input[type="text"], input[type="password"] {
             width: 90%; margin-bottom: 8px; border: 1px solid #777;
             padding: 3px; font-size: 11px;
         }
@@ -115,7 +109,6 @@
             text-decoration: none; text-shadow: 1px 1px 0px #2f6627;
             border-radius: 8px; box-shadow: 0px 4px 0px #18ab29;
         }
-        .download-btn:active { transform: translateY(2px); box-shadow: 0px 2px 0px #18ab29; }
 
         /* --- GAMES LIST --- */
         .game-card {
@@ -129,7 +122,6 @@
             align-items: center; justify-content: center; font-size: 40px;
         }
         .game-details h3 { margin: 0 0 5px 0; color: #003366; }
-        .game-details p { margin: 0; color: #666; font-size: 10px; }
         
         .dl-game-btn {
             margin-left: auto; background: #3498db;
@@ -154,8 +146,6 @@
             padding: 20px; font-size: 10px; color: #777;
             background: #f1f1f1; margin-top: auto;
         }
-
-        #error-msg { color: red; font-weight: bold; margin-bottom: 10px; display: none; }
     </style>
 </head>
 <body>
@@ -164,13 +154,13 @@
         <div class="modal-box">
             <h2>INSTALLATION REQUIRED!</h2>
             <div style="font-family: Verdana; font-size: 12px; line-height: 1.6;">
-                <p>To play <b>PLAYNO</b> games, you must follow these steps:</p>
+                <p>To play <b>PLAYNO</b> games, follow these steps:</p>
                 <ol>
                     <li>Go to your <b>(C:) Drive</b>.</li>
-                    <li>Create a folder: <code style="background:#eee;">Playno-Game</code></li>
-                    <li>Inside that, create a folder: <code style="background:#eee;">games</code></li>
-                    <li>Put the <b>.plno</b> file you just got into the <b>games</b> folder.</li>
-                    <li>Run <b>game.py</b> from the main folder.</li>
+                    <li>Create folder: <code style="background:#eee;">Playno-Game</code></li>
+                    <li>Inside that, create: <code style="background:#eee;">games</code></li>
+                    <li>Put the <b>.plno</b> file into the <b>games</b> folder.</li>
+                    <li>Run <b>game.py</b>.</li>
                 </ol>
             </div>
             <button class="btn-action" style="width: 100%; padding: 10px;" onclick="closeModal()">I UNDERSTAND</button>
@@ -191,15 +181,11 @@
             </div>
         </div>
 
-        <div class="motto-banner">
-            <marquee scrollamount="8">★ ★ ★ NO ROB-X ★ ★ ★ NO BUILDERS CLUB ★ ★ ★ BUILD YOUR OWN WORLDS ★ ★ ★ PLAY FOR FREE ★ ★ ★</marquee>
-        </div>
-
         <div class="nav-bar">
             <a href="index.html" class="nav-btn">Home</a>
             <a href="#games" class="nav-btn">Games</a>
-            <a href="catalog.html" class="nav-btn">Catalog</a>
-            <a href="forum.html" class="nav-btn">Forum</a>
+            <a href="#" class="nav-btn">Catalog</a>
+            <a href="#" class="nav-btn">Forum</a>
         </div>
 
         <div class="content-wrapper">
@@ -207,22 +193,11 @@
                 <div id="side-login-box" class="sidebar-box">
                     <div class="sidebar-header">Member Login</div>
                     <div class="sidebar-content">
-                        <div id="error-msg">Invalid Login!</div>
-                        <input type="text" id="login-email" placeholder="Email">
+                        <div id="error-msg" style="color:red; display:none;">Error!</div>
+                        <input type="text" id="login-user" placeholder="Username">
                         <input type="password" id="login-pass" placeholder="Password">
                         <button class="btn-action" onclick="handleLogin()">Login</button>
-                        <p style="font-size: 9px; margin-top: 10px;">
-                            No account? <a href="signup.html">Join Playno!</a>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="sidebar-box">
-                    <div class="sidebar-header">Server Status</div>
-                    <div class="sidebar-content" style="font-size: 10px;">
-                        <b>Internal:</b> <span style="color: green;">ONLINE</span><br>
-                        <b>Players:</b> 1,204<br>
-                        <b>Engine:</b> v0.8.2
+                        <p style="font-size: 9px; margin-top: 10px;">No account? <a href="signup.html">Join!</a></p>
                     </div>
                 </div>
             </div>
@@ -232,32 +207,18 @@
                     <h1 style="font-family: 'Comic Sans MS'; color: red; margin: 0;">PLAYNO ENGINE</h1>
                     <p style="font-weight: bold;">Create, Build, and Play with friends!</p>
                     <br>
-                    <button class="download-btn" onclick="downloadEngine()">
-                        DOWNLOAD ENGINE
-                    </button>
+                    <button class="download-btn" onclick="downloadEngine()">DOWNLOAD ENGINE</button>
                 </div>
 
-                <h2 id="games" style="border-bottom: 2px solid blue; color: blue; font-family: 'Comic Sans MS'; padding-bottom: 5px;">Cool Games</h2>
-                
+                <h2 id="games" style="border-bottom: 2px solid blue; color: blue; font-family: 'Comic Sans MS';">Cool Games</h2>
                 <div id="games-container">
                     <div class="game-card">
                         <div class="game-icon">🏙️</div>
                         <div class="game-details">
                             <h3>Mega City 2008</h3>
                             <p>Created by: <b>Admin</b></p>
-                            <p>Visits: 45,902</p>
                         </div>
                         <button class="dl-game-btn" onclick="downloadGame('MegaCity')">Download Game</button>
-                    </div>
-
-                    <div class="game-card">
-                        <div class="game-icon">🏃</div>
-                        <div class="game-details">
-                            <h3>Epic Parkour Obby</h3>
-                            <p>Created by: <b>SpeedRunner</b></p>
-                            <p>Visits: 12,003</p>
-                        </div>
-                        <button class="dl-game-btn" onclick="downloadGame('Parkour')">Download Game</button>
                     </div>
                 </div>
             </div>
@@ -265,40 +226,21 @@
 
         <div class="footer">
             PLAYNO &copy; 2008-2025. All rights reserved. <br>
-            <a href="#">Terms of Service</a> | <a href="#">Privacy</a> | <a href="#">Help</a>
-            <br><br>
             <i>Best viewed in Internet Explorer 7 or 8.</i>
         </div>
     </div>
 
     <script>
-        // --- FIREBASE REAL CONFIGURATION ---
-        // REPLACE THESE WITH YOUR OWN KEYS FROM FIREBASE CONSOLE!
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "your-project.firebaseapp.com",
-            databaseURL: "https://your-project-default-rtdb.firebaseio.com",
-            projectId: "your-project",
-            storageBucket: "your-project.appspot.com",
-            messagingSenderId: "123456789",
-            appId: "1:12345:web:abcd"
-        };
-
-        // Initialize Firebase
+        const firebaseConfig = { apiKey: "YOUR_API_KEY", projectId: "your-project" };
         firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const db = firebase.database();
 
-        // --- AUTHENTICATION LOGIC ---
-        auth.onAuthStateChanged(user => {
+        firebase.auth().onAuthStateChanged(user => {
             if (user) {
-                // User is signed in
                 document.getElementById('guest-header').style.display = 'none';
                 document.getElementById('side-login-box').style.display = 'none';
                 document.getElementById('user-header').style.display = 'block';
-                document.getElementById('display-name').innerText = user.email.split('@')[0];
+                document.getElementById('display-name').innerText = user.displayName || user.email.split('@')[0];
             } else {
-                // User is signed out
                 document.getElementById('guest-header').style.display = 'block';
                 document.getElementById('side-login-box').style.display = 'block';
                 document.getElementById('user-header').style.display = 'none';
@@ -306,59 +248,24 @@
         });
 
         async function handleLogin() {
-            const email = document.getElementById('login-email').value;
-            const pass = document.getElementById('login-pass').value;
-            const err = document.getElementById('error-msg');
-
+            const u = document.getElementById('login-user').value;
+            const p = document.getElementById('login-pass').value;
             try {
-                await auth.signInWithEmailAndPassword(email, pass);
-                err.style.display = 'none';
-            } catch (error) {
-                err.style.display = 'block';
-                err.innerText = error.message;
-            }
+                await firebase.auth().signInWithEmailAndPassword(u + "@playno.local", p);
+            } catch (e) { alert("Login failed!"); }
         }
 
-        function handleLogout() {
-            auth.signOut();
-        }
-
-        // --- DOWNLOAD LOGIC ---
-        function downloadEngine() {
-            // Replace with your actual GitHub raw link
-            const engineUrl = "https://raw.githubusercontent.com/CHEEESEISGREAT/playno-website/main/game.py";
-            window.location.href = engineUrl;
-        }
+        function handleLogout() { firebase.auth().signOut(); }
+        function downloadEngine() { window.location.href = "game.py"; }
+        function closeModal() { document.getElementById('dl-modal').style.display = 'none'; }
 
         function downloadGame(gameName) {
-            // This creates a real .plno file in the browser and downloads it
-            const gameData = {
-                title: gameName,
-                version: "1.0",
-                timestamp: Date.now(),
-                world: "Placeholder World Data"
-            };
-
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(gameData));
-            const dlAnchor = document.createElement('a');
-            dlAnchor.setAttribute("href", dataStr);
-            dlAnchor.setAttribute("download", gameName + ".plno");
-            dlAnchor.click();
-
-            // Show the instructions
+            const gameData = { name: gameName, parts: [{pos:[0,0,0], size:[100,100,1], color:[0.3,0.3,0.3,1]}] };
+            const blob = new Blob([JSON.stringify(gameData)], {type: "application/json"});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url; a.download = gameName + ".plno"; a.click();
             document.getElementById('dl-modal').style.display = 'flex';
-        }
-
-        function closeModal() {
-            document.getElementById('dl-modal').style.display = 'none';
-        }
-
-        // --- DATABASE INTERACTION (FOR LATER) ---
-        function saveUserData(userId, name) {
-            db.ref('users/' + userId).set({
-                username: name,
-                joinDate: Date.now()
-            });
         }
     </script>
 </body>
