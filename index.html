@@ -157,8 +157,9 @@
             background: #3498db;
             color: white;
             border: 1px solid black;
-            padding: 2px 5px;
-            font-size: 10px;
+            padding: 5px 10px;
+            font-size: 11px;
+            font-weight: bold;
             cursor: pointer;
         }
 
@@ -178,6 +179,7 @@
             padding: 20px;
             max-width: 400px;
             text-align: left;
+            box-shadow: 10px 10px 0px rgba(0,0,0,0.5);
         }
 
         .footer {
@@ -195,14 +197,14 @@
     <div id="instruction-overlay">
         <div class="modal">
             <h2 style="color:red; font-family:'Comic Sans MS'; margin-top:0;">HOW TO PLAY:</h2>
-            <ol style="font-size: 12px; line-height: 1.5;">
+            <ol style="font-size: 12px; line-height: 1.6; font-family: Verdana;">
                 <li>Open your <b>Hard Drive (C:)</b>.</li>
                 <li>Create a folder named <b>Playno-Game</b>.</li>
                 <li>Inside that, create a folder named <b>games</b>.</li>
-                <li>Move the <b>.plno</b> file you just downloaded into that <b>games</b> folder.</li>
-                <li>Run <code>game.py</code> to start!</li>
+                <li>Move the <b>.plno</b> file into that <b>games</b> folder.</li>
+                <li>Run <code>game.py</code> to start playing!</li>
             </ol>
-            <button onclick="document.getElementById('instruction-overlay').style.display='none'" style="width:100%; padding:10px; font-weight:bold; cursor:pointer;">OK, I GOT IT!</button>
+            <button onclick="document.getElementById('instruction-overlay').style.display='none'" style="width:100%; padding:10px; font-weight:bold; cursor:pointer; background:#eee; border:2px outset #fff;">OK, I GOT IT!</button>
         </div>
     </div>
 
@@ -285,7 +287,7 @@
                         <div class="game-stats">By: ${game.creator}</div>
                     </div>
                     <button class="dl-small-btn" onclick="downloadLevelFile(${index})">
-                        Download Place
+                        Download Game
                     </button>
                 `;
                 list.appendChild(entry);
